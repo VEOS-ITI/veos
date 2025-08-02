@@ -6,7 +6,8 @@ namespace aidl::android::vendor::test {
 
 ::ndk::ScopedAStatus VEOSService::getSpeed(std::float *_aidl_return)
 {
-    return ::ndk::ScopedAStatus();
+    *_aidl_return=50.0f; // Example speed value
+    return ndk::ScopedAStatus::ok();
 }
 
 ::ndk::ScopedAStatus VEOSService::getGear(std::int32 *_aidl_return)
