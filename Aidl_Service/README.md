@@ -30,7 +30,9 @@ make android.vendor.test-V1-java
 ## 4. Check the Location of Generated AIDL Outputs
 
 ```bash
-cd out/soong/.intermediates/vendor/Aidl_Service/aidl/android.vendor.test/android.vendor.test-api/
+ cd out/soong/.intermediates/vendor/VEOS/Aidl_Service/AIDL/android.vendor.test
+android.vendor.test_interface/      android.vendor.test-V1-java-source/ android.vendor.test-V1-ndk-source/
+android.vendor.test-V1-java/        android.vendor.test-V1-ndk/ 
 ```
 
 ---

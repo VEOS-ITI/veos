@@ -19,6 +19,4 @@ aidl_interface {
         },
     },
     vendor_available: true,
-    frozen: true,
-
 }
