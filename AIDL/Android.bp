@@ -1,0 +1,24 @@
+aidl_interface {
+    name: "android.vendor.test",
+
+    srcs: [
+        "android/vendor/test/*.aidl",
+    ],
+    stability: "vintf",
+    backend: {
+        java: {
+            enabled: true,
+
+        },
+        ndk: {
+            enabled: true,
+
+        },
+        cpp: {
+            enabled: false,
+        },
+    },
+    vendor_available: true,
+    frozen: true,
+
+}

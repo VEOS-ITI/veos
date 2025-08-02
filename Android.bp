@@ -1,0 +1,19 @@
+cc_binary {
+    name: "initVEOSService",
+    relative_install_path: "hw",
+    srcs: ["native/**/*.cpp"],
+    shared_libs: ["libc++",
+        "libbinder_ndk",
+        "libbinder",
+        "libutils",
+        "libbase",
+        "liblog",
+        "libcutils",
+"android.vendor.test-V1-ndk"],  
+    vendor:true, 
+    ldflags: ["-u", "-main"],
+    
+    init_rc: ["initVEOSService.rc"],
+}
+
+
