@@ -1,0 +1,14 @@
+[Unit]
+Description=Logetic Joystick Sender Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/logetic-sender
+Restart=always
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+

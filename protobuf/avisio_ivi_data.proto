@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package avisio_ivi;
+
+// Enum for EV drive selector modes
+enum DriveMode {
+  DRIVE_MODE_PARK = 0;
+  DRIVE_MODE_REVERSE = 1;
+  DRIVE_MODE_NEUTRAL = 2;
+  DRIVE_MODE_DRIVE = 3;
+  DRIVE_MODE_BRAKE = 4;    // Optional: Regenerative braking mode
+}
+
+// Vehicle Primary State (core EV metrics)
+message PrimaryVehicleState {
+  uint32 timestamp_ms = 1;
+  float speed_kmh = 2;
+  DriveMode current_drive_mode = 3;
+  uint32 battery_percent = 4;          // Battery SoC (0–100%)
+  int32 motor_temp_c = 5;              // Electric motor or controller temp
+  uint32 odometer_km = 6;
+  uint32 trip_distance_m = 7;
+}
+
+// Lighting and turn signal info
+message SignalLightingStatus {
+  uint32 timestamp_ms = 1;
+  uint32 turn_signals = 2;    // Bitfield: bit 0 = left, 1 = right, 2 = hazard
+  uint32 exterior_lights = 3; // Bitfield: headlights, fog lights, etc.
+}
+
+// Safety & status info
+message SafetyStatus {
+  uint32 timestamp_ms = 1;
+  bool seatbelt_fastened = 2;
+  bool airbag_ok = 3;
+  bool abs_active = 4;
+  bool traction_control = 5;
+}

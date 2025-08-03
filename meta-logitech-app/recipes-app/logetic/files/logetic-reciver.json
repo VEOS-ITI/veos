@@ -1,0 +1,30 @@
+{
+    "unicast" : "192.168.1.10",
+    "logging" :
+    {
+        "level" : "debug",
+        "console" : "true"
+    },
+    "applications" :
+    [
+        {
+            "name" : "Logitech-Sender",
+            "id" : "0x1234"
+        }
+    ],
+    "services" :
+    [
+        {
+            "service" : "0x1111",
+            "instance" : "0x2222",
+            "events" :
+            [
+                {
+                    "event" : "0x8001",
+                    "is_reliable" : false
+                }
+            ]
+        }
+    ]
+}
+

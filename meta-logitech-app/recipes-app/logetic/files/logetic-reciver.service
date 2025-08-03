@@ -1,0 +1,14 @@
+[Unit]
+Description=Logetic Vehicle Data Receiver Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/logetic-receiver
+Restart=always
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
