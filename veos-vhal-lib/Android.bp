@@ -1,0 +1,38 @@
+cc_library_shared {
+    name: "libveos_vhalshim",
+    srcs: ["src/vhal_shim.cpp"],
+    export_include_dirs: ["include"],
+
+    static_libs: [
+        "libvhalclient",
+    ],
+    defaults: [
+        "vhalclient_defaults",
+    ],
+
+    shared_libs: [
+        "libbinder_ndk",
+        "liblog",
+        "libbase",
+    ],
+
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+    ],
+
+    include_dirs: [
+        // IVhalClient
+        "packages/services/Car/cpp/vhal/client/include",
+
+        // Vehicle enums and types
+        "hardware/interfaces/automotive/vehicle/aidl/aidl_api",
+
+        // VehicleUtils and helpers
+        "hardware/interfaces/automotive/vehicle/aidl/impl/current/utils/common/include",
+    ],
+    installable: true,   
+
+}
+

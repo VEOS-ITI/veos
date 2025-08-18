@@ -1,0 +1,106 @@
+// -----------------------------
+// Prebuilt JARs (Retrofit + Gson + OkHttp)
+// -----------------------------
+java_import {
+    name: "veos_retrofit",
+    jars: ["libs/retrofit-2.9.0.jar"],
+    sdk_version: "system_current",
+}
+
+java_import {
+    name: "veos_converter_gson",
+    jars: ["libs/converter-gson-2.9.0.jar"],
+    sdk_version: "system_current",
+}
+
+java_import {
+    name: "veos_gson",
+    jars: ["libs/gson-2.10.1.jar"],
+    sdk_version: "system_current",
+}
+
+java_import {
+    name: "veos_okio",  // Renamed to avoid conflict
+    jars: ["libs/okio-3.6.0.jar"],
+    sdk_version: "system_current",
+    compile_dex: true, 
+}
+
+java_import {
+    name: "veos_okhttp",  // Renamed to avoid conflict
+    jars: ["libs/okhttp-4.11.0.jar"],
+    sdk_version: "system_current",
+    compile_dex: true, 
+}
+
+
+
+// -----------------------------
+// VEOSTelemetry App Module
+// -----------------------------
+android_app {
+    name: "VEOSTelemetry",
+
+    srcs: [
+        "src/java/**/*.java",
+    ],
+    resource_dirs: ["res"],
+    manifest: "AndroidManifest.xml",
+
+    privileged: true,
+    certificate: "platform",
+    sdk_version: "system_current",
+
+    jni_libs: [
+        "libveos_vhaljni",
+        "libveos_vhalshim",
+    ],
+
+    static_libs: [
+        "androidx.appcompat_appcompat",
+        "androidx.core_core",
+        "com.google.android.material_material",
+
+        // Use the renamed prebuilt JAR modules
+        "veos_retrofit",
+        "veos_converter_gson",
+        "veos_gson",
+        "veos_okio",
+        "veos_okhttp",
+
+    ],
+        optimize: {
+        enabled: false,
+    },
+
+}
+
+// -----------------------------
+// JNI Wrapper Library
+// -----------------------------
+cc_library_shared {
+    name: "libveos_vhaljni",
+
+    srcs: ["src/cpp/vhal_jni.cpp"],
+
+    local_include_dirs: [
+        "src/cpp/include",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libandroid",
+        "libveos_vhalshim",
+    ],
+
+    header_libs: [
+        "jni_headers",
+    ],
+
+    export_header_lib_headers: [
+        "jni_headers",
+    ],
+
+    stl: "c++_shared",
+}
+
