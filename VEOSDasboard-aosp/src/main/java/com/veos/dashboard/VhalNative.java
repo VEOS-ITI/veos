@@ -1,4 +1,4 @@
-package com.veos.telemetry;
+package com.veos.dashboard;
 
 import android.util.Log;
 

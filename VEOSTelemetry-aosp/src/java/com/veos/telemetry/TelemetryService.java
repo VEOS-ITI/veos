@@ -12,6 +12,8 @@ import com.veos.telemetry.network.TelemetryApi;
 
 import java.util.HashMap;
 import java.util.Map;
+import android.os.Handler;
+import android.os.Looper;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +21,15 @@ import retrofit2.Response;
 
 public class TelemetryService extends Service {
     private static final String TAG = "TelemetryService";
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private static final long FETCH_INTERVAL_MS = 5000; // every 5 seconds
+
+        // Track current values to detect changes
+    private int currentSpeed = 0;
+    private int currentDistance = 0;
+    private int currentDuration = 0;
+    private int currentBattery = 100;
+    private int currentTemp = 22;
 
     @Override
     public void onCreate() {
@@ -27,6 +38,7 @@ public class TelemetryService extends Service {
         VhalNative.init();
         Log.i(TAG, "VHAL init complete, now sending telemetry...");
         sendTelemetry();
+        startFetchingControls();
     }
 
     @Override
@@ -38,6 +50,90 @@ public class TelemetryService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    /**
+     * Fetsh the rectricted data from the server
+     */
+    private void startFetchingControls() {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fetchControls();
+                handler.postDelayed(this, FETCH_INTERVAL_MS);
+            }
+        }, FETCH_INTERVAL_MS);
+    }
+
+    private void fetchControls() {
+        TelemetryApi api = ApiClient.getClient().create(TelemetryApi.class);
+        api.fetchControls("rpi5-001").enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Map<String, Object> controls = response.body();
+                    Log.i(TAG, "Fetched controls: " + controls);
+                    applyControls(controls);
+                } else {
+                    Log.w(TAG, "Failed to fetch controls, code=" + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Log.e(TAG, "Error fetching controls", t);
+            }
+        });
+    }
+
+    /**
+     * Update VHAL properties with server values only if they differ from defaults
+     */
+       private void applyControls(Map<String, Object> controls) {
+        try {
+            if (controls.containsKey("veos_perf_vehicle_speed")) {
+                int newSpeed = ((Number) controls.get("veos_perf_vehicle_speed")).intValue();
+                if (newSpeed != currentSpeed) {
+                    VhalNative.setInt32(0x0F50, 0, newSpeed);
+                    currentSpeed = newSpeed;
+                    Log.i(TAG, "Updated speed to: " + newSpeed);
+                }
+            }
+            if (controls.containsKey("veos_trip_distance")) {
+                int newDistance = ((Number) controls.get("veos_trip_distance")).intValue();
+                if (newDistance != currentDistance) {
+                    VhalNative.setInt32(0x0F51, 0, newDistance);
+                    currentDistance = newDistance;
+                    Log.i(TAG, "Updated distance to: " + newDistance);
+                }
+            }
+            if (controls.containsKey("veos_trip_duration")) {
+                int newDuration = ((Number) controls.get("veos_trip_duration")).intValue();
+                if (newDuration != currentDuration) {
+                    VhalNative.setInt32(0x0F52, 0, newDuration);
+                    currentDuration = newDuration;
+                    Log.i(TAG, "Updated duration to: " + newDuration);
+                }
+            }
+            if (controls.containsKey("veos_ev_battery_level")) {
+                int newBattery = ((Number) controls.get("veos_ev_battery_level")).intValue();
+                if (newBattery != currentBattery) {
+                    VhalNative.setInt32(0x0F53, 0, newBattery);
+                    currentBattery = newBattery;
+                    Log.i(TAG, "Updated battery level to: " + newBattery);
+                }
+            }
+            if (controls.containsKey("veos_cabin_temp")) {
+                int newTemp = ((Number) controls.get("veos_cabin_temp")).intValue();
+                if (newTemp != currentTemp) {
+                    VhalNative.setInt32(0x0F54, 0, newTemp);
+                    currentTemp = newTemp;
+                    Log.i(TAG, "Updated cabin temperature to: " + newTemp);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed applying controls", e);
+        }
     }
 
     private void sendTelemetry() {
@@ -74,6 +170,7 @@ public class TelemetryService extends Service {
             }
         });
     }
+
     private void addLocation(Map<String, Object> payload) {
         try {
             LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -95,6 +192,7 @@ public class TelemetryService extends Service {
             Log.e(TAG, "Failed to get location", e);
         }
     }
+
     private void addInt(Map<String, Object> payload, int propId, int areaId) {
         try {
             int value = VhalNative.getInt32(propId, areaId);

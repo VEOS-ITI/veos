@@ -1,9 +1,9 @@
-// VEOSTelemetry App Module
+// VEOSDashboard App Module
 android_app {
-    name: "VEOSTelemetry",
-    srcs: ["src/java/**/*.java"],
-    resource_dirs: ["res"],
-    manifest: "AndroidManifest.xml",
+    name: "VEOSDashboard",
+    srcs: ["src/main/java/**/*.java"],
+    resource_dirs: ["src/main/res"],
+    manifest: "src/main/AndroidManifest.xml",
     privileged: true,
     certificate: "platform",
     sdk_version: "system_current",
@@ -13,12 +13,9 @@ android_app {
     static_libs: [
         "androidx.appcompat_appcompat",
         "androidx.core_core",
+        "androidx.recyclerview_recyclerview",
+        "androidx-constraintlayout_constraintlayout",
         "com.google.android.material_material",
-        "veos_common_retrofit",
-        "veos_common_converter_gson",
-        "veos_common_gson",
-        "veos_common_okio",
-        "veos_common_okhttp",
     ],
 
     optimize: {

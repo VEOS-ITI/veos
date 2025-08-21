@@ -9,7 +9,7 @@ public class ApiClient {
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.116:8080/api/") // your backend base URL //telemetry/
+                    .baseUrl("http://34.10.61.23:8000/api/") // your backend base URL //telemetry/
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

@@ -30,6 +30,20 @@ Java_com_veos_telemetry_VhalNative_vhal_1get_1bool(JNIEnv* env, jclass clazz, jl
     int rc = vhal_get_bool(c, propId, areaId, &out);
     return (rc == 0) ? out : 0;
 }
+// ---- Setters ----
+JNIEXPORT jint JNICALL
+Java_com_veos_telemetry_VhalNative_vhal_1set_1int32(JNIEnv* env, jclass clazz, jlong ptr,
+                                                   jint propId, jint areaId, jint value) {
+    vhal_client_t* c = reinterpret_cast<vhal_client_t*>(ptr);
+    return vhal_set_int32(c, propId, areaId, value);
+}
+
+JNIEXPORT jint JNICALL
+Java_com_veos_telemetry_VhalNative_vhal_1set_1bool(JNIEnv* env, jclass clazz, jlong ptr,
+                                                  jint propId, jint areaId, jint value) {
+    vhal_client_t* c = reinterpret_cast<vhal_client_t*>(ptr);
+    return vhal_set_bool(c, propId, areaId, value);
+}
 
 }
 

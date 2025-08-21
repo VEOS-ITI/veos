@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
 
     <application
         android:label="VEOS Telemetry"
@@ -37,6 +39,17 @@
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="connectedDevice|dataSync|location" />
+
+            <!-- Receiver for boot completed  -->
+<receiver
+    android:name=".BootReceiver"
+    android:enabled="true"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT"/>
+    </intent-filter>
+</receiver>
 
     </application>
 </manifest>
