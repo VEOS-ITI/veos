@@ -1,0 +1,64 @@
+cc_binary {
+    name: "E01HelloWorldClient",
+
+    srcs: [
+        "src/*.cpp",
+        "src-gen/v0/commonapi/examples/*.cpp",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libvsomeip3",
+        "libcommonapi_someip",
+        "libcommonapi",
+        "libc++",
+        "libboost_system",
+        "libboost_thread",
+        "libboost_filesystem",
+        "libcrypto",
+        "libutils",
+    ],
+
+    ldflags: [
+        "-Wl,--as-needed",
+        "-Wl,--export-dynamic",
+    ],
+
+    local_include_dirs: [
+        "src-gen",
+    ],
+    stl: "libc++_static",
+
+    include_dirs: [
+        "external/sdv/capicxx-core-runtime/include",
+        "external/sdv/capicxx-someip-runtime/include",
+        "external/sdv/vsomeip/interface",
+    ],
+
+    cppflags: [
+        "-std=c++17",   
+        "-fexceptions",
+        "-DUSE_CONSOLE",
+        "-DCOMMONAPI_LOGLEVEL=COMMONAPI_LOGLEVEL_DEBUG",
+        "-pthread",
+        "-Wall",
+        "-O0",
+        "-D_GLIBCXX_USE_NANOSLEEP",
+        "-DLINUX",
+
+        "-Wextra",
+        "-DANDROID",       // Enable exceptions
+        "-Wno-error=deprecated-declarations",
+        "-Wno-unused-private-field",
+        "-Wno-unused-parameter",
+        "-Wno-overloaded-virtual",
+    ],
+
+   
+
+    rtti: true,                 // <<< CRITICAL: Enable RTTI for dynamic_cast
+
+    strip: {
+        none: true,
+    },
+}
