@@ -1,0 +1,39 @@
+cc_prebuilt_library_shared {
+    name: "libveos_vhalshim",
+    srcs: ["arm64-v8a/libveos_vhalshim.so"],
+    system_ext_specific: true,
+    strip: {
+        none: true,
+    },
+    shared_libs: [
+        "libbase",
+        "libbinder_ndk",
+        "libc++",
+        "libcutils",
+        "libhidlbase", 
+        "liblog",
+        "libutils",
+    ],
+    compile_multilib: "64",
+}
+
+cc_library_shared {
+    name: "libveos_vhaljni",
+    srcs: ["jni/vhal_jni.cpp"],
+    local_include_dirs: [
+        "jni/include",
+    ],
+    shared_libs: [
+        "liblog",
+        "libandroid",
+        "libveos_vhalshim",  
+    ],
+    header_libs: [
+        "jni_headers",
+    ],
+    export_header_lib_headers: [
+        "jni_headers",
+    ],
+    stl: "c++_shared",
+    system_ext_specific: true,
+}

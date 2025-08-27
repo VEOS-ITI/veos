@@ -28,19 +28,3 @@ java_import {
     jars: ["libs/okhttp-4.11.0.jar"],
     sdk_version: "system_current",
 }
-
-// Shared JNI Library
-cc_library_shared {
-    name: "veos_common_vhaljni",
-    srcs: ["jni/vhal_jni.cpp"],
-    local_include_dirs: ["jni/include"],
-    shared_libs: [
-        "liblog",
-        "libandroid",
-        "libveos_vhalshim", // This references the shim library from veos-vhal-lib
-    ],
-    header_libs: ["jni_headers"],
-    export_header_lib_headers: ["jni_headers"],
-    stl: "c++_shared",
-    vendor: true,
-}

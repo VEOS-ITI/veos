@@ -5,10 +5,10 @@ import android.util.Log;
 public class VhalNative {
     static {
         try {
-            System.loadLibrary("veos_common_vhaljni");
-            Log.i("VhalNative", "Loaded veos_common_vhaljni");
+            System.loadLibrary("veos_vhaljni");
+            Log.i("VhalNative", "Loaded veos_vhaljni");
         } catch (UnsatisfiedLinkError e) {
-            Log.e("VhalNative", "Failed to load veos_common_vhaljni", e);
+            Log.e("VhalNative", "Failed to load veos_vhalshim", e);
         }
     }
 

@@ -8,7 +8,9 @@ android_app {
     certificate: "platform",
     sdk_version: "system_current",
 
-    jni_libs: ["veos_common_vhaljni"],
+    jni_libs: [
+        "libveos_vhaljni",    
+    ],
 
     static_libs: [
         "androidx.appcompat_appcompat",
@@ -25,3 +27,4 @@ android_app {
         enabled: false,
     },
 }
+

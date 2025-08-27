@@ -3,7 +3,6 @@ PRODUCT_PACKAGES += \
     veos_vhal \
     VEOSDashboard \
     VEOSTelemetry \
-    veos_common_vhaljni \
     libveos_vhalshim \
     libvsomeip3 \
     libvsomeip3-cfg \
@@ -11,7 +10,8 @@ PRODUCT_PACKAGES += \
     libvsomeip3-e2e \
     libcommonapi_someip \
     libcommonapi \
-    E01HelloWorldClient
+    E01HelloWorldClient \
+    
  
     
 PRODUCT_PACKAGES += \

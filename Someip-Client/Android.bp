@@ -5,7 +5,6 @@ cc_binary {
         "src/*.cpp",
         "src-gen/v0/commonapi/examples/*.cpp",
     ],
-
     shared_libs: [
         "liblog",
         "libvsomeip3",
@@ -17,7 +16,10 @@ cc_binary {
         "libboost_filesystem",
         "libcrypto",
         "libutils",
+        "libprotobuf-cpp-lite",
+        "libveos_vhalshim",
     ],
+        static_libs: ["libavisio_ivi_proto"],
 
     ldflags: [
         "-Wl,--as-needed",
@@ -26,6 +28,7 @@ cc_binary {
 
     local_include_dirs: [
         "src-gen",
+        "inc",
     ],
     stl: "libc++_static",
 
@@ -33,6 +36,7 @@ cc_binary {
         "external/sdv/capicxx-core-runtime/include",
         "external/sdv/capicxx-someip-runtime/include",
         "external/sdv/vsomeip/interface",
+        "external/protobuf/src",
     ],
 
     cppflags: [
@@ -45,9 +49,8 @@ cc_binary {
         "-O0",
         "-D_GLIBCXX_USE_NANOSLEEP",
         "-DLINUX",
-
         "-Wextra",
-        "-DANDROID",       // Enable exceptions
+        "-DANDROID",
         "-Wno-error=deprecated-declarations",
         "-Wno-unused-private-field",
         "-Wno-unused-parameter",
@@ -61,4 +64,46 @@ cc_binary {
     strip: {
         none: true,
     },
+        installable: true,
+
+}
+
+prebuilt_etc {
+    name: "someip_private_key",
+    src: "private.pem",
+    sub_dir: "someip",
+    installable: true,
+}
+
+prebuilt_etc {
+    name: "someip_public_key",
+    src: "public.pem",
+    sub_dir: "someip",
+    installable: true,
+}
+prebuilt_etc {
+    name: "someip_config",
+    src: "vsomeip-aosp.json",
+    sub_dir: "someip",
+    installable: true,
+}
+cc_library_static {
+    name: "libavisio_ivi_proto",
+    srcs: [
+        "src-gen/protobuf/avisio_ivi.pb.cc",
+    ],
+    export_include_dirs: ["src-gen/protobuf"],
+    include_dirs: [
+        "external/protobuf/src",
+    ],
+    shared_libs: [
+        "libprotobuf-cpp-lite",
+        "liblog",
+    ],
+    cppflags: [
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+    ],
+    vendor: true,
 }

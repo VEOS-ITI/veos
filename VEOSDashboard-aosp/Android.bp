@@ -1,24 +1,32 @@
+// -----------------------------
 // VEOSDashboard App Module
+// -----------------------------
 android_app {
     name: "VEOSDashboard",
-    srcs: ["src/main/java/**/*.java"],
+    srcs: [
+        "src/main/java/**/*.java",
+    ],
     resource_dirs: ["src/main/res"],
     manifest: "src/main/AndroidManifest.xml",
     privileged: true,
     certificate: "platform",
     sdk_version: "system_current",
-
-    jni_libs: ["veos_common_vhaljni"],
-
+    jni_libs: [
+        "libveos_vhaljni",     
+    ],
     static_libs: [
         "androidx.appcompat_appcompat",
         "androidx.core_core",
-        "androidx.recyclerview_recyclerview",
-        "androidx-constraintlayout_constraintlayout",
+        "androidx.recyclerview_recyclerview",  
+        "androidx-constraintlayout_constraintlayout",  
         "com.google.android.material_material",
     ],
-
     optimize: {
         enabled: false,
     },
+    
+    // Add these for better resource handling
+    aaptflags: [
+        "--auto-add-overlay",
+    ],
 }

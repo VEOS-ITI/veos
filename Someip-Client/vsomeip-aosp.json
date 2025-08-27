@@ -10,7 +10,7 @@
     "applications" :
     [
         {
-            "name" : "service-sample", 
+            "name" : "client-sample", 
             "id" : "0x1277"             
         }
     ],
@@ -41,7 +41,7 @@
         ]
     }
 ],
-    "routing" : "service-sample", 
+    "routing" : "client-sample", 
     "service-discovery" :
     {
         "enable" : "true",

@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package avisio_ivi;
+
+// Enum for gear positions
+enum Gear {
+  GEAR_NEUTRAL = 0;
+  GEAR_FIRST = 1;
+  GEAR_SECOND = 2;
+  GEAR_THIRD = 3;
+  GEAR_FOURTH = 4;
+  GEAR_FIFTH = 5;
+  GEAR_SIXTH = 6;
+  GEAR_REVERSE = 7;
+}
+
+// Enum for light status
+enum LightStatus {
+  LIGHTS_OFF = 0;
+  LIGHTS_ON = 1;
+  LIGHTS_AUTO = 2;
+}
+
+// Vehicle Primary State (core vehicle metrics)
+message PrimaryVehicleState {
+  uint32 timestamp_ms = 1;
+  uint32 speed_kmh = 2;
+  uint32 engine_rpm = 3; // Keeping for now, can be set to 0 for electric
+  Gear current_gear = 4;
+  // GearMode gear_mode = 5; // Removed as per user request
+  uint32 battery_level = 6;
+  int32 engine_temp_c = 7;
+  // uint32 odometer_km = 9; // Removed as per user request
+  // uint32 trip_distance_m = 10; // Removed as per user request
+  bool is_charging = 8;
+  LightStatus exterior_lights_status = 9;
+  int32 cabin_temp_c = 10;
+  bool ac_on = 11;
+  bool turn_signal_left = 12;
+  bool turn_signal_right = 13;
+  bool hazard_lights_on = 14;
+}
+
+// SignalLightingStatus message can be simplified or removed if all signals are in PrimaryVehicleState
+// For now, keeping it but will integrate relevant fields into PrimaryVehicleState
+message SignalLightingStatus {
+  uint32 timestamp_ms = 1;
+  uint32 turn_signals = 2;    // Bitfield: bit 0 = left, 1 = right, 2 = hazard
+  uint32 exterior_lights = 3; // Bitfield: headlights, fog lights, etc.
+}
+
+// Safety & status info - Keeping for now, but not directly used in this task
+message SafetyStatus {
+  uint32 timestamp_ms = 1;
+  bool seatbelt_fastened = 2;
+  bool airbag_ok = 3;
+  bool abs_active = 4;
+  bool traction_control = 5;
+}
+
+

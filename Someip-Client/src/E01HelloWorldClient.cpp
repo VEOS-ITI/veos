@@ -14,6 +14,7 @@
 #include <CommonAPI/CommonAPI.hpp>
 #include <v0/commonapi/examples/E01HelloWorldProxy.hpp>
 #include "RSAHelper.hpp"
+#include "ProtobufDataHandler.hpp" 
 
 using namespace v0::commonapi::examples;
 
@@ -51,16 +52,19 @@ int main() {
     // CommonAPI::CallInfo info(1000);
     // info.sender_ = 1234;
 
+    ProtobufDataHandler dataHandler; 
+
     myProxy->getStatusEvent().subscribe(
-        [](const CommonAPI::ByteBuffer &encrypted) {
-            CommonAPI::ByteBuffer buffer = decryptByteBufferRSA(encrypted);
-            std::cout << "[Client] Received status event." << buffer.size() << std::endl;
-            if (buffer.empty()) {
-                std::cout << "[Client] Received empty broadcast." << std::endl;
-                return;
-            }
-            std::string msg(buffer.begin(), buffer.end());
-            std::cout << "[Client] Received broadcast: " << msg << std::endl;
+        [&](const CommonAPI::ByteBuffer &encrypted) { // Capture dataHandler by reference
+            // CommonAPI::ByteBuffer buffer = decryptByteBufferRSA(encrypted);
+            // std::cout << "[Client] Received status event." << buffer.size() << std::endl;
+            // if (buffer.empty()) {
+            //     std::cout << "[Client] Received empty broadcast." << std::endl;
+            //     return;
+            // }
+            // std::string msg(buffer.begin(), buffer.end());
+            // std::cout << "[Client] Received broadcast: " << msg << std::endl;
+            dataHandler.handleProtobufData(encrypted); // Call the handler
         });
 
     while (true) {
@@ -69,3 +73,4 @@ int main() {
 
     return 0;
 }
+
