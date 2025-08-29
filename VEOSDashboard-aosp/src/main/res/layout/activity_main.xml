@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/background2"
+    android:background="@drawable/background11"
     android:scrollbarAlwaysDrawHorizontalTrack="true">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="170dp"
-        android:layout_height="74dp"
+        android:layout_width="301dp"
+        android:layout_height="138dp"
         android:gravity="center"
         android:text="65"
         android:textColor="@color/white"
-        android:textSize="60dp"
+        android:textSize="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,13 +25,13 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="210dp"
+        android:layout_height="68dp"
         android:layout_marginTop="24dp"
+        android:gravity="center"
         android:text="KM/H"
         android:textColor="@color/white"
-        android:textSize="25dp"
-        android:gravity="center"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,134 +40,135 @@
 
     <TextView
         android:id="@+id/temp_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="134dp"
+        android:layout_height="69dp"
         android:layout_marginTop="24dp"
+        android:gravity="center"
         android:text="25 C"
         android:textColor="@color/white"
-        android:textSize="25dp"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.392"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.944" />
+        app:layout_constraintVertical_bias="0.978" />
 
     <TextView
         android:id="@+id/charge_txt"
-        android:layout_width="110dp"
-        android:layout_height="47dp"
+        android:layout_width="117dp"
+        android:layout_height="74dp"
         android:layout_marginEnd="688dp"
         android:gravity="center"
         android:text="60%"
         android:textColor="@color/white"
-        android:textSize="25dp"
+        android:textSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.763"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toEndOf="@+id/charge_img"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.967" />
+        app:layout_constraintVertical_bias="0.977" />
 
     <ImageView
         android:id="@+id/charge_img"
-        android:layout_width="73dp"
-        android:layout_height="66dp"
+        android:layout_width="123dp"
+        android:layout_height="108dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.001"
+        app:layout_constraintHorizontal_bias="0.004"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/charging111" />
 
     <ImageView
         android:id="@+id/battery1_img"
-        android:layout_width="89dp"
-        android:layout_height="60dp"
+        android:layout_width="169dp"
+        android:layout_height="103dp"
         android:rotation="90"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/charge_img"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/battery1" />
 
     <ImageView
         android:id="@+id/battery2_img"
-        android:layout_width="89dp"
-        android:layout_height="60dp"
+        android:layout_width="169dp"
+        android:layout_height="103dp"
         android:rotation="90"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/charge_img"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/battery2" />
 
     <ImageView
         android:id="@+id/battery3_img"
-        android:layout_width="89dp"
-        android:layout_height="60dp"
+        android:layout_width="169dp"
+        android:layout_height="103dp"
         android:rotation="90"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/charge_img"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/battery3" />
 
     <ImageView
         android:id="@+id/battery4_img"
-        android:layout_width="89dp"
-        android:layout_height="60dp"
+        android:layout_width="169dp"
+        android:layout_height="103dp"
         android:rotation="90"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/charge_img"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/battery4" />
 
     <ImageView
         android:id="@+id/battery5_img"
-        android:layout_width="89dp"
-        android:layout_height="60dp"
+        android:layout_width="169dp"
+        android:layout_height="103dp"
         android:rotation="90"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/charge_img"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.966"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/battery5" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="99dp"
-        android:layout_height="84dp"
+        android:layout_width="136dp"
+        android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.829"
+        app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toEndOf="@+id/charge_txt"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.979"
         app:srcCompat="@drawable/cloudy" />
 
     <ImageView
         android:id="@+id/right_off_img"
-        android:layout_width="62dp"
-        android:layout_height="63dp"
+        android:layout_width="110dp"
+        android:layout_height="87dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -176,10 +177,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.029"
         app:srcCompat="@drawable/rightoff" />
+
     <ImageView
         android:id="@+id/right_on_img"
-        android:layout_width="62dp"
-        android:layout_height="63dp"
+        android:layout_width="110dp"
+        android:layout_height="87dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -204,8 +206,8 @@
 
     <ImageView
         android:id="@+id/light_on_img"
-        android:layout_width="94dp"
-        android:layout_height="73dp"
+        android:layout_width="110dp"
+        android:layout_height="87dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/right_off_img"
@@ -218,8 +220,8 @@
 
     <ImageView
         android:id="@+id/light_error_img"
-        android:layout_width="94dp"
-        android:layout_height="73dp"
+        android:layout_width="110dp"
+        android:layout_height="87dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/right_off_img"
@@ -231,21 +233,21 @@
 
     <ImageView
         android:id="@+id/tire_img"
-        android:layout_width="83dp"
-        android:layout_height="58dp"
+        android:layout_width="110dp"
+        android:layout_height="87dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/light_off_img"
-        app:layout_constraintHorizontal_bias="0.962"
+        app:layout_constraintHorizontal_bias="0.964"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.038"
+        app:layout_constraintVertical_bias="0.031"
         app:srcCompat="@drawable/tire" />
 
     <ImageView
         android:id="@+id/left_off_img"
-        android:layout_width="84dp"
-        android:layout_height="65dp"
+        android:layout_width="110dp"
+        android:layout_height="87dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/right_off_img"
         app:layout_constraintHorizontal_bias="0.019"
@@ -255,8 +257,8 @@
         app:srcCompat="@drawable/leftoff" />
     <ImageView
         android:id="@+id/left_on_img"
-        android:layout_width="84dp"
-        android:layout_height="65dp"
+        android:layout_width="110dp"
+        android:layout_height="87dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/right_off_img"
         app:layout_constraintHorizontal_bias="0.019"
@@ -267,8 +269,8 @@
 
     <ImageView
         android:id="@+id/seat_belt_img"
-        android:layout_width="87dp"
-        android:layout_height="73dp"
+        android:layout_width="110dp"
+        android:layout_height="87dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/right_off_img"
@@ -280,44 +282,30 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gearRecycler"
-        android:layout_width="271dp"
-        android:layout_height="137dp"
+        android:layout_width="454dp"
+        android:layout_height="204dp"
         android:layout_marginTop="140dp"
 
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seat_belt_img"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.265" />
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="501dp"
-        android:layout_height="186dp"
-        android:elevation="10dp"
-        android:visibility="visible"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="547dp"
+        android:layout_height="248dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.513"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"/>
-
-<!--    <ImageView-->
-<!--        android:id="@+id/carView"-->
-<!--        android:layout_width="501dp"-->
-<!--        android:layout_height="186dp"-->
-<!--        android:elevation="10dp"-->
-<!--        android:src="@drawable/car"-->
-<!--        android:visibility="visible"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.529"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="1.0" />-->
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/car" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     android:layout_width="60dp"
     android:layout_height="60dp"
     android:gravity="center"
-    android:textSize="24sp"
+    android:textSize="50dp"
     android:textColor="#55FFFFFF"
     android:fontFamily="@font/roboto"
     android:layout_margin="8dp"/>

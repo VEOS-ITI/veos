@@ -4,7 +4,6 @@
 #ifndef GOOGLE_PROTOBUF_INCLUDED_avisio_5fivi_2eproto
 #define GOOGLE_PROTOBUF_INCLUDED_avisio_5fivi_2eproto
 
-#include <cstdint>
 #include <limits>
 #include <string>
 
@@ -26,10 +25,12 @@
 #include <google/protobuf/arenastring.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/metadata_lite.h>
-#include <google/protobuf/message_lite.h>
+#include <google/protobuf/generated_message_reflection.h>
+#include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
-#include <google/protobuf/generated_enum_util.h>
+#include <google/protobuf/generated_enum_reflection.h>
+#include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_avisio_5fivi_2eproto
@@ -41,8 +42,9 @@ PROTOBUF_NAMESPACE_CLOSE
 
 // Internal implementation detail -- do not use these members.
 struct TableStruct_avisio_5fivi_2eproto {
-  static const ::uint32_t offsets[];
+  static const uint32_t offsets[];
 };
+extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_avisio_5fivi_2eproto;
 namespace avisio_ivi {
 class PrimaryVehicleState;
 struct PrimaryVehicleStateDefaultTypeInternal;
@@ -70,53 +72,58 @@ enum Gear : int {
   GEAR_FIFTH = 5,
   GEAR_SIXTH = 6,
   GEAR_REVERSE = 7,
-  Gear_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::int32_t>::min(),
-  Gear_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::int32_t>::max()
+  Gear_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  Gear_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool Gear_IsValid(int value);
 constexpr Gear Gear_MIN = GEAR_NEUTRAL;
 constexpr Gear Gear_MAX = GEAR_REVERSE;
 constexpr int Gear_ARRAYSIZE = Gear_MAX + 1;
 
-const std::string& Gear_Name(Gear value);
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* Gear_descriptor();
 template<typename T>
 inline const std::string& Gear_Name(T enum_t_value) {
   static_assert(::std::is_same<T, Gear>::value ||
     ::std::is_integral<T>::value,
     "Incorrect type passed to function Gear_Name.");
-  return Gear_Name(static_cast<Gear>(enum_t_value));
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    Gear_descriptor(), enum_t_value);
 }
-bool Gear_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Gear* value);
-enum GearMode : int {
-  GEAR_MODE_PARK = 0,
-  GEAR_MODE_REVERSE = 1,
-  GEAR_MODE_NEUTRAL = 2,
-  GEAR_MODE_DRIVE = 3,
-  GEAR_MODE_SPORT = 4,
-  GEAR_MODE_MANUAL = 5,
-  GearMode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::int32_t>::min(),
-  GearMode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::int32_t>::max()
+inline bool Gear_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Gear* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<Gear>(
+    Gear_descriptor(), name, value);
+}
+enum LightStatus : int {
+  LIGHTS_OFF = 0,
+  LIGHTS_ON = 1,
+  LIGHTS_AUTO = 2,
+  LightStatus_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  LightStatus_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
-bool GearMode_IsValid(int value);
-constexpr GearMode GearMode_MIN = GEAR_MODE_PARK;
-constexpr GearMode GearMode_MAX = GEAR_MODE_MANUAL;
-constexpr int GearMode_ARRAYSIZE = GearMode_MAX + 1;
+bool LightStatus_IsValid(int value);
+constexpr LightStatus LightStatus_MIN = LIGHTS_OFF;
+constexpr LightStatus LightStatus_MAX = LIGHTS_AUTO;
+constexpr int LightStatus_ARRAYSIZE = LightStatus_MAX + 1;
 
-const std::string& GearMode_Name(GearMode value);
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LightStatus_descriptor();
 template<typename T>
-inline const std::string& GearMode_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, GearMode>::value ||
+inline const std::string& LightStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, LightStatus>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function GearMode_Name.");
-  return GearMode_Name(static_cast<GearMode>(enum_t_value));
+    "Incorrect type passed to function LightStatus_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    LightStatus_descriptor(), enum_t_value);
 }
-bool GearMode_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GearMode* value);
+inline bool LightStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LightStatus* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<LightStatus>(
+    LightStatus_descriptor(), name, value);
+}
 // ===================================================================
 
 class PrimaryVehicleState final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:avisio_ivi.PrimaryVehicleState) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:avisio_ivi.PrimaryVehicleState) */ {
  public:
   inline PrimaryVehicleState() : PrimaryVehicleState(nullptr) {}
   ~PrimaryVehicleState() override;
@@ -129,7 +136,6 @@ class PrimaryVehicleState final :
   }
 
   inline PrimaryVehicleState& operator=(const PrimaryVehicleState& from) {
-    if (this == &from) return *this;
     CopyFrom(from);
     return *this;
   }
@@ -147,6 +153,15 @@ class PrimaryVehicleState final :
     return *this;
   }
 
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
   static const PrimaryVehicleState& default_instance() {
     return *internal_default_instance();
   }
@@ -181,28 +196,31 @@ class PrimaryVehicleState final :
 
   // implements Message ----------------------------------------------
 
-  PrimaryVehicleState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+  PrimaryVehicleState* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<PrimaryVehicleState>(arena);
   }
-  PrimaryVehicleState* New() const {
-    return New(nullptr);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
   void CopyFrom(const PrimaryVehicleState& from);
-  void MergeFrom(const PrimaryVehicleState& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const PrimaryVehicleState& from) {
+    PrimaryVehicleState::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
   size_t ByteSizeLong() const final;
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
   int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
 
   private:
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
-  void SetCachedSize(int size) const;
+  void SetCachedSize(int size) const final;
   void InternalSwap(PrimaryVehicleState* other);
 
   private:
@@ -215,7 +233,10 @@ class PrimaryVehicleState final :
                        bool is_message_owned = false);
   public:
 
-  std::string GetTypeName() const final;
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
 
   // nested types ----------------------------------------------------
 
@@ -226,38 +247,41 @@ class PrimaryVehicleState final :
     kSpeedKmhFieldNumber = 2,
     kEngineRpmFieldNumber = 3,
     kCurrentGearFieldNumber = 4,
-    kGearModeFieldNumber = 5,
-    kFuelLevelMillipercentFieldNumber = 6,
+    kBatteryLevelFieldNumber = 6,
     kEngineTempCFieldNumber = 7,
-    kStatusFlagsFieldNumber = 8,
-    kOdometerKmFieldNumber = 9,
-    kTripDistanceMFieldNumber = 10,
+    kExteriorLightsStatusFieldNumber = 9,
+    kCabinTempCFieldNumber = 10,
+    kIsChargingFieldNumber = 8,
+    kAcOnFieldNumber = 11,
+    kTurnSignalLeftFieldNumber = 12,
+    kTurnSignalRightFieldNumber = 13,
+    kHazardLightsOnFieldNumber = 14,
   };
   // uint32 timestamp_ms = 1;
   void clear_timestamp_ms();
-  ::uint32_t timestamp_ms() const;
-  void set_timestamp_ms(::uint32_t value);
+  uint32_t timestamp_ms() const;
+  void set_timestamp_ms(uint32_t value);
   private:
-  ::uint32_t _internal_timestamp_ms() const;
-  void _internal_set_timestamp_ms(::uint32_t value);
+  uint32_t _internal_timestamp_ms() const;
+  void _internal_set_timestamp_ms(uint32_t value);
   public:
 
-  // float speed_kmh = 2;
+  // uint32 speed_kmh = 2;
   void clear_speed_kmh();
-  float speed_kmh() const;
-  void set_speed_kmh(float value);
+  uint32_t speed_kmh() const;
+  void set_speed_kmh(uint32_t value);
   private:
-  float _internal_speed_kmh() const;
-  void _internal_set_speed_kmh(float value);
+  uint32_t _internal_speed_kmh() const;
+  void _internal_set_speed_kmh(uint32_t value);
   public:
 
-  // double engine_rpm = 3;
+  // uint32 engine_rpm = 3;
   void clear_engine_rpm();
-  double engine_rpm() const;
-  void set_engine_rpm(double value);
+  uint32_t engine_rpm() const;
+  void set_engine_rpm(uint32_t value);
   private:
-  double _internal_engine_rpm() const;
-  void _internal_set_engine_rpm(double value);
+  uint32_t _internal_engine_rpm() const;
+  void _internal_set_engine_rpm(uint32_t value);
   public:
 
   // .avisio_ivi.Gear current_gear = 4;
@@ -269,58 +293,85 @@ class PrimaryVehicleState final :
   void _internal_set_current_gear(::avisio_ivi::Gear value);
   public:
 
-  // .avisio_ivi.GearMode gear_mode = 5;
-  void clear_gear_mode();
-  ::avisio_ivi::GearMode gear_mode() const;
-  void set_gear_mode(::avisio_ivi::GearMode value);
+  // uint32 battery_level = 6;
+  void clear_battery_level();
+  uint32_t battery_level() const;
+  void set_battery_level(uint32_t value);
   private:
-  ::avisio_ivi::GearMode _internal_gear_mode() const;
-  void _internal_set_gear_mode(::avisio_ivi::GearMode value);
-  public:
-
-  // uint32 fuel_level_millipercent = 6;
-  void clear_fuel_level_millipercent();
-  ::uint32_t fuel_level_millipercent() const;
-  void set_fuel_level_millipercent(::uint32_t value);
-  private:
-  ::uint32_t _internal_fuel_level_millipercent() const;
-  void _internal_set_fuel_level_millipercent(::uint32_t value);
+  uint32_t _internal_battery_level() const;
+  void _internal_set_battery_level(uint32_t value);
   public:
 
   // int32 engine_temp_c = 7;
   void clear_engine_temp_c();
-  ::int32_t engine_temp_c() const;
-  void set_engine_temp_c(::int32_t value);
+  int32_t engine_temp_c() const;
+  void set_engine_temp_c(int32_t value);
   private:
-  ::int32_t _internal_engine_temp_c() const;
-  void _internal_set_engine_temp_c(::int32_t value);
+  int32_t _internal_engine_temp_c() const;
+  void _internal_set_engine_temp_c(int32_t value);
   public:
 
-  // uint32 status_flags = 8;
-  void clear_status_flags();
-  ::uint32_t status_flags() const;
-  void set_status_flags(::uint32_t value);
+  // .avisio_ivi.LightStatus exterior_lights_status = 9;
+  void clear_exterior_lights_status();
+  ::avisio_ivi::LightStatus exterior_lights_status() const;
+  void set_exterior_lights_status(::avisio_ivi::LightStatus value);
   private:
-  ::uint32_t _internal_status_flags() const;
-  void _internal_set_status_flags(::uint32_t value);
+  ::avisio_ivi::LightStatus _internal_exterior_lights_status() const;
+  void _internal_set_exterior_lights_status(::avisio_ivi::LightStatus value);
   public:
 
-  // uint32 odometer_km = 9;
-  void clear_odometer_km();
-  ::uint32_t odometer_km() const;
-  void set_odometer_km(::uint32_t value);
+  // int32 cabin_temp_c = 10;
+  void clear_cabin_temp_c();
+  int32_t cabin_temp_c() const;
+  void set_cabin_temp_c(int32_t value);
   private:
-  ::uint32_t _internal_odometer_km() const;
-  void _internal_set_odometer_km(::uint32_t value);
+  int32_t _internal_cabin_temp_c() const;
+  void _internal_set_cabin_temp_c(int32_t value);
   public:
 
-  // uint32 trip_distance_m = 10;
-  void clear_trip_distance_m();
-  ::uint32_t trip_distance_m() const;
-  void set_trip_distance_m(::uint32_t value);
+  // bool is_charging = 8;
+  void clear_is_charging();
+  bool is_charging() const;
+  void set_is_charging(bool value);
   private:
-  ::uint32_t _internal_trip_distance_m() const;
-  void _internal_set_trip_distance_m(::uint32_t value);
+  bool _internal_is_charging() const;
+  void _internal_set_is_charging(bool value);
+  public:
+
+  // bool ac_on = 11;
+  void clear_ac_on();
+  bool ac_on() const;
+  void set_ac_on(bool value);
+  private:
+  bool _internal_ac_on() const;
+  void _internal_set_ac_on(bool value);
+  public:
+
+  // bool turn_signal_left = 12;
+  void clear_turn_signal_left();
+  bool turn_signal_left() const;
+  void set_turn_signal_left(bool value);
+  private:
+  bool _internal_turn_signal_left() const;
+  void _internal_set_turn_signal_left(bool value);
+  public:
+
+  // bool turn_signal_right = 13;
+  void clear_turn_signal_right();
+  bool turn_signal_right() const;
+  void set_turn_signal_right(bool value);
+  private:
+  bool _internal_turn_signal_right() const;
+  void _internal_set_turn_signal_right(bool value);
+  public:
+
+  // bool hazard_lights_on = 14;
+  void clear_hazard_lights_on();
+  bool hazard_lights_on() const;
+  void set_hazard_lights_on(bool value);
+  private:
+  bool _internal_hazard_lights_on() const;
+  void _internal_set_hazard_lights_on(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:avisio_ivi.PrimaryVehicleState)
@@ -331,16 +382,19 @@ class PrimaryVehicleState final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::uint32_t timestamp_ms_;
-    float speed_kmh_;
-    double engine_rpm_;
+    uint32_t timestamp_ms_;
+    uint32_t speed_kmh_;
+    uint32_t engine_rpm_;
     int current_gear_;
-    int gear_mode_;
-    ::uint32_t fuel_level_millipercent_;
-    ::int32_t engine_temp_c_;
-    ::uint32_t status_flags_;
-    ::uint32_t odometer_km_;
-    ::uint32_t trip_distance_m_;
+    uint32_t battery_level_;
+    int32_t engine_temp_c_;
+    int exterior_lights_status_;
+    int32_t cabin_temp_c_;
+    bool is_charging_;
+    bool ac_on_;
+    bool turn_signal_left_;
+    bool turn_signal_right_;
+    bool hazard_lights_on_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -349,7 +403,7 @@ class PrimaryVehicleState final :
 // -------------------------------------------------------------------
 
 class SignalLightingStatus final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:avisio_ivi.SignalLightingStatus) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:avisio_ivi.SignalLightingStatus) */ {
  public:
   inline SignalLightingStatus() : SignalLightingStatus(nullptr) {}
   ~SignalLightingStatus() override;
@@ -362,7 +416,6 @@ class SignalLightingStatus final :
   }
 
   inline SignalLightingStatus& operator=(const SignalLightingStatus& from) {
-    if (this == &from) return *this;
     CopyFrom(from);
     return *this;
   }
@@ -380,6 +433,15 @@ class SignalLightingStatus final :
     return *this;
   }
 
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
   static const SignalLightingStatus& default_instance() {
     return *internal_default_instance();
   }
@@ -414,28 +476,31 @@ class SignalLightingStatus final :
 
   // implements Message ----------------------------------------------
 
-  SignalLightingStatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+  SignalLightingStatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<SignalLightingStatus>(arena);
   }
-  SignalLightingStatus* New() const {
-    return New(nullptr);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
   void CopyFrom(const SignalLightingStatus& from);
-  void MergeFrom(const SignalLightingStatus& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SignalLightingStatus& from) {
+    SignalLightingStatus::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
   size_t ByteSizeLong() const final;
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
   int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
 
   private:
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
-  void SetCachedSize(int size) const;
+  void SetCachedSize(int size) const final;
   void InternalSwap(SignalLightingStatus* other);
 
   private:
@@ -448,7 +513,10 @@ class SignalLightingStatus final :
                        bool is_message_owned = false);
   public:
 
-  std::string GetTypeName() const final;
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
 
   // nested types ----------------------------------------------------
 
@@ -461,29 +529,29 @@ class SignalLightingStatus final :
   };
   // uint32 timestamp_ms = 1;
   void clear_timestamp_ms();
-  ::uint32_t timestamp_ms() const;
-  void set_timestamp_ms(::uint32_t value);
+  uint32_t timestamp_ms() const;
+  void set_timestamp_ms(uint32_t value);
   private:
-  ::uint32_t _internal_timestamp_ms() const;
-  void _internal_set_timestamp_ms(::uint32_t value);
+  uint32_t _internal_timestamp_ms() const;
+  void _internal_set_timestamp_ms(uint32_t value);
   public:
 
   // uint32 turn_signals = 2;
   void clear_turn_signals();
-  ::uint32_t turn_signals() const;
-  void set_turn_signals(::uint32_t value);
+  uint32_t turn_signals() const;
+  void set_turn_signals(uint32_t value);
   private:
-  ::uint32_t _internal_turn_signals() const;
-  void _internal_set_turn_signals(::uint32_t value);
+  uint32_t _internal_turn_signals() const;
+  void _internal_set_turn_signals(uint32_t value);
   public:
 
   // uint32 exterior_lights = 3;
   void clear_exterior_lights();
-  ::uint32_t exterior_lights() const;
-  void set_exterior_lights(::uint32_t value);
+  uint32_t exterior_lights() const;
+  void set_exterior_lights(uint32_t value);
   private:
-  ::uint32_t _internal_exterior_lights() const;
-  void _internal_set_exterior_lights(::uint32_t value);
+  uint32_t _internal_exterior_lights() const;
+  void _internal_set_exterior_lights(uint32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:avisio_ivi.SignalLightingStatus)
@@ -494,9 +562,9 @@ class SignalLightingStatus final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::uint32_t timestamp_ms_;
-    ::uint32_t turn_signals_;
-    ::uint32_t exterior_lights_;
+    uint32_t timestamp_ms_;
+    uint32_t turn_signals_;
+    uint32_t exterior_lights_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -505,7 +573,7 @@ class SignalLightingStatus final :
 // -------------------------------------------------------------------
 
 class SafetyStatus final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:avisio_ivi.SafetyStatus) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:avisio_ivi.SafetyStatus) */ {
  public:
   inline SafetyStatus() : SafetyStatus(nullptr) {}
   ~SafetyStatus() override;
@@ -518,7 +586,6 @@ class SafetyStatus final :
   }
 
   inline SafetyStatus& operator=(const SafetyStatus& from) {
-    if (this == &from) return *this;
     CopyFrom(from);
     return *this;
   }
@@ -536,6 +603,15 @@ class SafetyStatus final :
     return *this;
   }
 
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
   static const SafetyStatus& default_instance() {
     return *internal_default_instance();
   }
@@ -570,28 +646,31 @@ class SafetyStatus final :
 
   // implements Message ----------------------------------------------
 
-  SafetyStatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+  SafetyStatus* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
     return CreateMaybeMessage<SafetyStatus>(arena);
   }
-  SafetyStatus* New() const {
-    return New(nullptr);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
   void CopyFrom(const SafetyStatus& from);
-  void MergeFrom(const SafetyStatus& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom( const SafetyStatus& from) {
+    SafetyStatus::MergeImpl(*this, from);
+  }
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
+  public:
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
   size_t ByteSizeLong() const final;
   const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
   int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
 
   private:
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
-  void SetCachedSize(int size) const;
+  void SetCachedSize(int size) const final;
   void InternalSwap(SafetyStatus* other);
 
   private:
@@ -604,7 +683,10 @@ class SafetyStatus final :
                        bool is_message_owned = false);
   public:
 
-  std::string GetTypeName() const final;
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
 
   // nested types ----------------------------------------------------
 
@@ -614,15 +696,16 @@ class SafetyStatus final :
     kTimestampMsFieldNumber = 1,
     kSeatbeltFastenedFieldNumber = 2,
     kAirbagOkFieldNumber = 3,
+    kAbsActiveFieldNumber = 4,
     kTractionControlFieldNumber = 5,
   };
   // uint32 timestamp_ms = 1;
   void clear_timestamp_ms();
-  ::uint32_t timestamp_ms() const;
-  void set_timestamp_ms(::uint32_t value);
+  uint32_t timestamp_ms() const;
+  void set_timestamp_ms(uint32_t value);
   private:
-  ::uint32_t _internal_timestamp_ms() const;
-  void _internal_set_timestamp_ms(::uint32_t value);
+  uint32_t _internal_timestamp_ms() const;
+  void _internal_set_timestamp_ms(uint32_t value);
   public:
 
   // bool seatbelt_fastened = 2;
@@ -643,6 +726,15 @@ class SafetyStatus final :
   void _internal_set_airbag_ok(bool value);
   public:
 
+  // bool abs_active = 4;
+  void clear_abs_active();
+  bool abs_active() const;
+  void set_abs_active(bool value);
+  private:
+  bool _internal_abs_active() const;
+  void _internal_set_abs_active(bool value);
+  public:
+
   // bool traction_control = 5;
   void clear_traction_control();
   bool traction_control() const;
@@ -660,9 +752,10 @@ class SafetyStatus final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::uint32_t timestamp_ms_;
+    uint32_t timestamp_ms_;
     bool seatbelt_fastened_;
     bool airbag_ok_;
+    bool abs_active_;
     bool traction_control_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
@@ -684,58 +777,58 @@ class SafetyStatus final :
 inline void PrimaryVehicleState::clear_timestamp_ms() {
   _impl_.timestamp_ms_ = 0u;
 }
-inline ::uint32_t PrimaryVehicleState::_internal_timestamp_ms() const {
+inline uint32_t PrimaryVehicleState::_internal_timestamp_ms() const {
   return _impl_.timestamp_ms_;
 }
-inline ::uint32_t PrimaryVehicleState::timestamp_ms() const {
+inline uint32_t PrimaryVehicleState::timestamp_ms() const {
   // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.timestamp_ms)
   return _internal_timestamp_ms();
 }
-inline void PrimaryVehicleState::_internal_set_timestamp_ms(::uint32_t value) {
+inline void PrimaryVehicleState::_internal_set_timestamp_ms(uint32_t value) {
   
   _impl_.timestamp_ms_ = value;
 }
-inline void PrimaryVehicleState::set_timestamp_ms(::uint32_t value) {
+inline void PrimaryVehicleState::set_timestamp_ms(uint32_t value) {
   _internal_set_timestamp_ms(value);
   // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.timestamp_ms)
 }
 
-// float speed_kmh = 2;
+// uint32 speed_kmh = 2;
 inline void PrimaryVehicleState::clear_speed_kmh() {
-  _impl_.speed_kmh_ = 0;
+  _impl_.speed_kmh_ = 0u;
 }
-inline float PrimaryVehicleState::_internal_speed_kmh() const {
+inline uint32_t PrimaryVehicleState::_internal_speed_kmh() const {
   return _impl_.speed_kmh_;
 }
-inline float PrimaryVehicleState::speed_kmh() const {
+inline uint32_t PrimaryVehicleState::speed_kmh() const {
   // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.speed_kmh)
   return _internal_speed_kmh();
 }
-inline void PrimaryVehicleState::_internal_set_speed_kmh(float value) {
+inline void PrimaryVehicleState::_internal_set_speed_kmh(uint32_t value) {
   
   _impl_.speed_kmh_ = value;
 }
-inline void PrimaryVehicleState::set_speed_kmh(float value) {
+inline void PrimaryVehicleState::set_speed_kmh(uint32_t value) {
   _internal_set_speed_kmh(value);
   // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.speed_kmh)
 }
 
-// double engine_rpm = 3;
+// uint32 engine_rpm = 3;
 inline void PrimaryVehicleState::clear_engine_rpm() {
-  _impl_.engine_rpm_ = 0;
+  _impl_.engine_rpm_ = 0u;
 }
-inline double PrimaryVehicleState::_internal_engine_rpm() const {
+inline uint32_t PrimaryVehicleState::_internal_engine_rpm() const {
   return _impl_.engine_rpm_;
 }
-inline double PrimaryVehicleState::engine_rpm() const {
+inline uint32_t PrimaryVehicleState::engine_rpm() const {
   // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.engine_rpm)
   return _internal_engine_rpm();
 }
-inline void PrimaryVehicleState::_internal_set_engine_rpm(double value) {
+inline void PrimaryVehicleState::_internal_set_engine_rpm(uint32_t value) {
   
   _impl_.engine_rpm_ = value;
 }
-inline void PrimaryVehicleState::set_engine_rpm(double value) {
+inline void PrimaryVehicleState::set_engine_rpm(uint32_t value) {
   _internal_set_engine_rpm(value);
   // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.engine_rpm)
 }
@@ -760,124 +853,184 @@ inline void PrimaryVehicleState::set_current_gear(::avisio_ivi::Gear value) {
   // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.current_gear)
 }
 
-// .avisio_ivi.GearMode gear_mode = 5;
-inline void PrimaryVehicleState::clear_gear_mode() {
-  _impl_.gear_mode_ = 0;
+// uint32 battery_level = 6;
+inline void PrimaryVehicleState::clear_battery_level() {
+  _impl_.battery_level_ = 0u;
 }
-inline ::avisio_ivi::GearMode PrimaryVehicleState::_internal_gear_mode() const {
-  return static_cast< ::avisio_ivi::GearMode >(_impl_.gear_mode_);
+inline uint32_t PrimaryVehicleState::_internal_battery_level() const {
+  return _impl_.battery_level_;
 }
-inline ::avisio_ivi::GearMode PrimaryVehicleState::gear_mode() const {
-  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.gear_mode)
-  return _internal_gear_mode();
+inline uint32_t PrimaryVehicleState::battery_level() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.battery_level)
+  return _internal_battery_level();
 }
-inline void PrimaryVehicleState::_internal_set_gear_mode(::avisio_ivi::GearMode value) {
+inline void PrimaryVehicleState::_internal_set_battery_level(uint32_t value) {
   
-  _impl_.gear_mode_ = value;
+  _impl_.battery_level_ = value;
 }
-inline void PrimaryVehicleState::set_gear_mode(::avisio_ivi::GearMode value) {
-  _internal_set_gear_mode(value);
-  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.gear_mode)
-}
-
-// uint32 fuel_level_millipercent = 6;
-inline void PrimaryVehicleState::clear_fuel_level_millipercent() {
-  _impl_.fuel_level_millipercent_ = 0u;
-}
-inline ::uint32_t PrimaryVehicleState::_internal_fuel_level_millipercent() const {
-  return _impl_.fuel_level_millipercent_;
-}
-inline ::uint32_t PrimaryVehicleState::fuel_level_millipercent() const {
-  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.fuel_level_millipercent)
-  return _internal_fuel_level_millipercent();
-}
-inline void PrimaryVehicleState::_internal_set_fuel_level_millipercent(::uint32_t value) {
-  
-  _impl_.fuel_level_millipercent_ = value;
-}
-inline void PrimaryVehicleState::set_fuel_level_millipercent(::uint32_t value) {
-  _internal_set_fuel_level_millipercent(value);
-  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.fuel_level_millipercent)
+inline void PrimaryVehicleState::set_battery_level(uint32_t value) {
+  _internal_set_battery_level(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.battery_level)
 }
 
 // int32 engine_temp_c = 7;
 inline void PrimaryVehicleState::clear_engine_temp_c() {
   _impl_.engine_temp_c_ = 0;
 }
-inline ::int32_t PrimaryVehicleState::_internal_engine_temp_c() const {
+inline int32_t PrimaryVehicleState::_internal_engine_temp_c() const {
   return _impl_.engine_temp_c_;
 }
-inline ::int32_t PrimaryVehicleState::engine_temp_c() const {
+inline int32_t PrimaryVehicleState::engine_temp_c() const {
   // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.engine_temp_c)
   return _internal_engine_temp_c();
 }
-inline void PrimaryVehicleState::_internal_set_engine_temp_c(::int32_t value) {
+inline void PrimaryVehicleState::_internal_set_engine_temp_c(int32_t value) {
   
   _impl_.engine_temp_c_ = value;
 }
-inline void PrimaryVehicleState::set_engine_temp_c(::int32_t value) {
+inline void PrimaryVehicleState::set_engine_temp_c(int32_t value) {
   _internal_set_engine_temp_c(value);
   // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.engine_temp_c)
 }
 
-// uint32 status_flags = 8;
-inline void PrimaryVehicleState::clear_status_flags() {
-  _impl_.status_flags_ = 0u;
+// bool is_charging = 8;
+inline void PrimaryVehicleState::clear_is_charging() {
+  _impl_.is_charging_ = false;
 }
-inline ::uint32_t PrimaryVehicleState::_internal_status_flags() const {
-  return _impl_.status_flags_;
+inline bool PrimaryVehicleState::_internal_is_charging() const {
+  return _impl_.is_charging_;
 }
-inline ::uint32_t PrimaryVehicleState::status_flags() const {
-  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.status_flags)
-  return _internal_status_flags();
+inline bool PrimaryVehicleState::is_charging() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.is_charging)
+  return _internal_is_charging();
 }
-inline void PrimaryVehicleState::_internal_set_status_flags(::uint32_t value) {
+inline void PrimaryVehicleState::_internal_set_is_charging(bool value) {
   
-  _impl_.status_flags_ = value;
+  _impl_.is_charging_ = value;
 }
-inline void PrimaryVehicleState::set_status_flags(::uint32_t value) {
-  _internal_set_status_flags(value);
-  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.status_flags)
+inline void PrimaryVehicleState::set_is_charging(bool value) {
+  _internal_set_is_charging(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.is_charging)
 }
 
-// uint32 odometer_km = 9;
-inline void PrimaryVehicleState::clear_odometer_km() {
-  _impl_.odometer_km_ = 0u;
+// .avisio_ivi.LightStatus exterior_lights_status = 9;
+inline void PrimaryVehicleState::clear_exterior_lights_status() {
+  _impl_.exterior_lights_status_ = 0;
 }
-inline ::uint32_t PrimaryVehicleState::_internal_odometer_km() const {
-  return _impl_.odometer_km_;
+inline ::avisio_ivi::LightStatus PrimaryVehicleState::_internal_exterior_lights_status() const {
+  return static_cast< ::avisio_ivi::LightStatus >(_impl_.exterior_lights_status_);
 }
-inline ::uint32_t PrimaryVehicleState::odometer_km() const {
-  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.odometer_km)
-  return _internal_odometer_km();
+inline ::avisio_ivi::LightStatus PrimaryVehicleState::exterior_lights_status() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.exterior_lights_status)
+  return _internal_exterior_lights_status();
 }
-inline void PrimaryVehicleState::_internal_set_odometer_km(::uint32_t value) {
+inline void PrimaryVehicleState::_internal_set_exterior_lights_status(::avisio_ivi::LightStatus value) {
   
-  _impl_.odometer_km_ = value;
+  _impl_.exterior_lights_status_ = value;
 }
-inline void PrimaryVehicleState::set_odometer_km(::uint32_t value) {
-  _internal_set_odometer_km(value);
-  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.odometer_km)
+inline void PrimaryVehicleState::set_exterior_lights_status(::avisio_ivi::LightStatus value) {
+  _internal_set_exterior_lights_status(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.exterior_lights_status)
 }
 
-// uint32 trip_distance_m = 10;
-inline void PrimaryVehicleState::clear_trip_distance_m() {
-  _impl_.trip_distance_m_ = 0u;
+// int32 cabin_temp_c = 10;
+inline void PrimaryVehicleState::clear_cabin_temp_c() {
+  _impl_.cabin_temp_c_ = 0;
 }
-inline ::uint32_t PrimaryVehicleState::_internal_trip_distance_m() const {
-  return _impl_.trip_distance_m_;
+inline int32_t PrimaryVehicleState::_internal_cabin_temp_c() const {
+  return _impl_.cabin_temp_c_;
 }
-inline ::uint32_t PrimaryVehicleState::trip_distance_m() const {
-  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.trip_distance_m)
-  return _internal_trip_distance_m();
+inline int32_t PrimaryVehicleState::cabin_temp_c() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.cabin_temp_c)
+  return _internal_cabin_temp_c();
 }
-inline void PrimaryVehicleState::_internal_set_trip_distance_m(::uint32_t value) {
+inline void PrimaryVehicleState::_internal_set_cabin_temp_c(int32_t value) {
   
-  _impl_.trip_distance_m_ = value;
+  _impl_.cabin_temp_c_ = value;
 }
-inline void PrimaryVehicleState::set_trip_distance_m(::uint32_t value) {
-  _internal_set_trip_distance_m(value);
-  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.trip_distance_m)
+inline void PrimaryVehicleState::set_cabin_temp_c(int32_t value) {
+  _internal_set_cabin_temp_c(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.cabin_temp_c)
+}
+
+// bool ac_on = 11;
+inline void PrimaryVehicleState::clear_ac_on() {
+  _impl_.ac_on_ = false;
+}
+inline bool PrimaryVehicleState::_internal_ac_on() const {
+  return _impl_.ac_on_;
+}
+inline bool PrimaryVehicleState::ac_on() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.ac_on)
+  return _internal_ac_on();
+}
+inline void PrimaryVehicleState::_internal_set_ac_on(bool value) {
+  
+  _impl_.ac_on_ = value;
+}
+inline void PrimaryVehicleState::set_ac_on(bool value) {
+  _internal_set_ac_on(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.ac_on)
+}
+
+// bool turn_signal_left = 12;
+inline void PrimaryVehicleState::clear_turn_signal_left() {
+  _impl_.turn_signal_left_ = false;
+}
+inline bool PrimaryVehicleState::_internal_turn_signal_left() const {
+  return _impl_.turn_signal_left_;
+}
+inline bool PrimaryVehicleState::turn_signal_left() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.turn_signal_left)
+  return _internal_turn_signal_left();
+}
+inline void PrimaryVehicleState::_internal_set_turn_signal_left(bool value) {
+  
+  _impl_.turn_signal_left_ = value;
+}
+inline void PrimaryVehicleState::set_turn_signal_left(bool value) {
+  _internal_set_turn_signal_left(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.turn_signal_left)
+}
+
+// bool turn_signal_right = 13;
+inline void PrimaryVehicleState::clear_turn_signal_right() {
+  _impl_.turn_signal_right_ = false;
+}
+inline bool PrimaryVehicleState::_internal_turn_signal_right() const {
+  return _impl_.turn_signal_right_;
+}
+inline bool PrimaryVehicleState::turn_signal_right() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.turn_signal_right)
+  return _internal_turn_signal_right();
+}
+inline void PrimaryVehicleState::_internal_set_turn_signal_right(bool value) {
+  
+  _impl_.turn_signal_right_ = value;
+}
+inline void PrimaryVehicleState::set_turn_signal_right(bool value) {
+  _internal_set_turn_signal_right(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.turn_signal_right)
+}
+
+// bool hazard_lights_on = 14;
+inline void PrimaryVehicleState::clear_hazard_lights_on() {
+  _impl_.hazard_lights_on_ = false;
+}
+inline bool PrimaryVehicleState::_internal_hazard_lights_on() const {
+  return _impl_.hazard_lights_on_;
+}
+inline bool PrimaryVehicleState::hazard_lights_on() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.PrimaryVehicleState.hazard_lights_on)
+  return _internal_hazard_lights_on();
+}
+inline void PrimaryVehicleState::_internal_set_hazard_lights_on(bool value) {
+  
+  _impl_.hazard_lights_on_ = value;
+}
+inline void PrimaryVehicleState::set_hazard_lights_on(bool value) {
+  _internal_set_hazard_lights_on(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.PrimaryVehicleState.hazard_lights_on)
 }
 
 // -------------------------------------------------------------------
@@ -888,18 +1041,18 @@ inline void PrimaryVehicleState::set_trip_distance_m(::uint32_t value) {
 inline void SignalLightingStatus::clear_timestamp_ms() {
   _impl_.timestamp_ms_ = 0u;
 }
-inline ::uint32_t SignalLightingStatus::_internal_timestamp_ms() const {
+inline uint32_t SignalLightingStatus::_internal_timestamp_ms() const {
   return _impl_.timestamp_ms_;
 }
-inline ::uint32_t SignalLightingStatus::timestamp_ms() const {
+inline uint32_t SignalLightingStatus::timestamp_ms() const {
   // @@protoc_insertion_point(field_get:avisio_ivi.SignalLightingStatus.timestamp_ms)
   return _internal_timestamp_ms();
 }
-inline void SignalLightingStatus::_internal_set_timestamp_ms(::uint32_t value) {
+inline void SignalLightingStatus::_internal_set_timestamp_ms(uint32_t value) {
   
   _impl_.timestamp_ms_ = value;
 }
-inline void SignalLightingStatus::set_timestamp_ms(::uint32_t value) {
+inline void SignalLightingStatus::set_timestamp_ms(uint32_t value) {
   _internal_set_timestamp_ms(value);
   // @@protoc_insertion_point(field_set:avisio_ivi.SignalLightingStatus.timestamp_ms)
 }
@@ -908,18 +1061,18 @@ inline void SignalLightingStatus::set_timestamp_ms(::uint32_t value) {
 inline void SignalLightingStatus::clear_turn_signals() {
   _impl_.turn_signals_ = 0u;
 }
-inline ::uint32_t SignalLightingStatus::_internal_turn_signals() const {
+inline uint32_t SignalLightingStatus::_internal_turn_signals() const {
   return _impl_.turn_signals_;
 }
-inline ::uint32_t SignalLightingStatus::turn_signals() const {
+inline uint32_t SignalLightingStatus::turn_signals() const {
   // @@protoc_insertion_point(field_get:avisio_ivi.SignalLightingStatus.turn_signals)
   return _internal_turn_signals();
 }
-inline void SignalLightingStatus::_internal_set_turn_signals(::uint32_t value) {
+inline void SignalLightingStatus::_internal_set_turn_signals(uint32_t value) {
   
   _impl_.turn_signals_ = value;
 }
-inline void SignalLightingStatus::set_turn_signals(::uint32_t value) {
+inline void SignalLightingStatus::set_turn_signals(uint32_t value) {
   _internal_set_turn_signals(value);
   // @@protoc_insertion_point(field_set:avisio_ivi.SignalLightingStatus.turn_signals)
 }
@@ -928,18 +1081,18 @@ inline void SignalLightingStatus::set_turn_signals(::uint32_t value) {
 inline void SignalLightingStatus::clear_exterior_lights() {
   _impl_.exterior_lights_ = 0u;
 }
-inline ::uint32_t SignalLightingStatus::_internal_exterior_lights() const {
+inline uint32_t SignalLightingStatus::_internal_exterior_lights() const {
   return _impl_.exterior_lights_;
 }
-inline ::uint32_t SignalLightingStatus::exterior_lights() const {
+inline uint32_t SignalLightingStatus::exterior_lights() const {
   // @@protoc_insertion_point(field_get:avisio_ivi.SignalLightingStatus.exterior_lights)
   return _internal_exterior_lights();
 }
-inline void SignalLightingStatus::_internal_set_exterior_lights(::uint32_t value) {
+inline void SignalLightingStatus::_internal_set_exterior_lights(uint32_t value) {
   
   _impl_.exterior_lights_ = value;
 }
-inline void SignalLightingStatus::set_exterior_lights(::uint32_t value) {
+inline void SignalLightingStatus::set_exterior_lights(uint32_t value) {
   _internal_set_exterior_lights(value);
   // @@protoc_insertion_point(field_set:avisio_ivi.SignalLightingStatus.exterior_lights)
 }
@@ -952,18 +1105,18 @@ inline void SignalLightingStatus::set_exterior_lights(::uint32_t value) {
 inline void SafetyStatus::clear_timestamp_ms() {
   _impl_.timestamp_ms_ = 0u;
 }
-inline ::uint32_t SafetyStatus::_internal_timestamp_ms() const {
+inline uint32_t SafetyStatus::_internal_timestamp_ms() const {
   return _impl_.timestamp_ms_;
 }
-inline ::uint32_t SafetyStatus::timestamp_ms() const {
+inline uint32_t SafetyStatus::timestamp_ms() const {
   // @@protoc_insertion_point(field_get:avisio_ivi.SafetyStatus.timestamp_ms)
   return _internal_timestamp_ms();
 }
-inline void SafetyStatus::_internal_set_timestamp_ms(::uint32_t value) {
+inline void SafetyStatus::_internal_set_timestamp_ms(uint32_t value) {
   
   _impl_.timestamp_ms_ = value;
 }
-inline void SafetyStatus::set_timestamp_ms(::uint32_t value) {
+inline void SafetyStatus::set_timestamp_ms(uint32_t value) {
   _internal_set_timestamp_ms(value);
   // @@protoc_insertion_point(field_set:avisio_ivi.SafetyStatus.timestamp_ms)
 }
@@ -1008,6 +1161,26 @@ inline void SafetyStatus::set_airbag_ok(bool value) {
   // @@protoc_insertion_point(field_set:avisio_ivi.SafetyStatus.airbag_ok)
 }
 
+// bool abs_active = 4;
+inline void SafetyStatus::clear_abs_active() {
+  _impl_.abs_active_ = false;
+}
+inline bool SafetyStatus::_internal_abs_active() const {
+  return _impl_.abs_active_;
+}
+inline bool SafetyStatus::abs_active() const {
+  // @@protoc_insertion_point(field_get:avisio_ivi.SafetyStatus.abs_active)
+  return _internal_abs_active();
+}
+inline void SafetyStatus::_internal_set_abs_active(bool value) {
+  
+  _impl_.abs_active_ = value;
+}
+inline void SafetyStatus::set_abs_active(bool value) {
+  _internal_set_abs_active(value);
+  // @@protoc_insertion_point(field_set:avisio_ivi.SafetyStatus.abs_active)
+}
+
 // bool traction_control = 5;
 inline void SafetyStatus::clear_traction_control() {
   _impl_.traction_control_ = false;
@@ -1043,7 +1216,15 @@ inline void SafetyStatus::set_traction_control(bool value) {
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::avisio_ivi::Gear> : ::std::true_type {};
-template <> struct is_proto_enum< ::avisio_ivi::GearMode> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::avisio_ivi::Gear>() {
+  return ::avisio_ivi::Gear_descriptor();
+}
+template <> struct is_proto_enum< ::avisio_ivi::LightStatus> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::avisio_ivi::LightStatus>() {
+  return ::avisio_ivi::LightStatus_descriptor();
+}
 
 PROTOBUF_NAMESPACE_CLOSE
 

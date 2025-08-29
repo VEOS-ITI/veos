@@ -11,6 +11,13 @@ PRODUCT_PACKAGES += \
     libcommonapi_someip \
     libcommonapi \
     E01HelloWorldClient \
+    libboost_log \
+    libboost_system \
+    libboost_thread \
+    libvsomeip3 \
+    
+
+
     
  
     

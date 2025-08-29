@@ -5,6 +5,7 @@ cc_binary {
         "src/*.cpp",
         "src-gen/v0/commonapi/examples/*.cpp",
     ],
+
     shared_libs: [
         "liblog",
         "libvsomeip3",
@@ -16,21 +17,21 @@ cc_binary {
         "libboost_filesystem",
         "libcrypto",
         "libutils",
-        "libprotobuf-cpp-lite",
-        "libveos_vhalshim",
-    ],
-        static_libs: ["libavisio_ivi_proto"],
-
-    ldflags: [
-        "-Wl,--as-needed",
-        "-Wl,--export-dynamic",
-    ],
+        "libprotobuf-cpp-full",
+        "libveos_vhalshim" ,
+        "libvsomeip3-sd" ,
+        "libvsomeip3-cfg" ,
+        "libvsomeip3-e2e",
+        "libboost_log" ,
+        
+   	 ],
+	static_libs: [
+    	"libavisio_ivi_proto"],
 
     local_include_dirs: [
         "src-gen",
         "inc",
     ],
-    stl: "libc++_static",
 
     include_dirs: [
         "external/sdv/capicxx-core-runtime/include",
@@ -40,32 +41,11 @@ cc_binary {
     ],
 
     cppflags: [
-        "-std=c++17",   
         "-fexceptions",
-        "-DUSE_CONSOLE",
-        "-DCOMMONAPI_LOGLEVEL=COMMONAPI_LOGLEVEL_DEBUG",
-        "-pthread",
-        "-Wall",
-        "-O0",
-        "-D_GLIBCXX_USE_NANOSLEEP",
-        "-DLINUX",
-        "-Wextra",
-        "-DANDROID",
-        "-Wno-error=deprecated-declarations",
-        "-Wno-unused-private-field",
-        "-Wno-unused-parameter",
-        "-Wno-overloaded-virtual",
+        "-frtti"
     ],
 
-   
-
     rtti: true,                 // <<< CRITICAL: Enable RTTI for dynamic_cast
-
-    strip: {
-        none: true,
-    },
-        installable: true,
-
 }
 
 prebuilt_etc {
@@ -97,7 +77,6 @@ cc_library_static {
         "external/protobuf/src",
     ],
     shared_libs: [
-        "libprotobuf-cpp-lite",
         "liblog",
     ],
     cppflags: [

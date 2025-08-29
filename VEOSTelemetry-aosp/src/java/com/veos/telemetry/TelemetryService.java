@@ -11,10 +11,11 @@ import com.veos.telemetry.network.ApiClient;
 import com.veos.telemetry.network.TelemetryApi;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import android.os.Handler;
 import android.os.Looper;
-
+import retrofit2.http.Query;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -65,26 +66,34 @@ public class TelemetryService extends Service {
         }, FETCH_INTERVAL_MS);
     }
 
-    private void fetchControls() {
-        TelemetryApi api = ApiClient.getClient().create(TelemetryApi.class);
-        api.fetchControls("rpi5-001").enqueue(new Callback<Map<String, Object>>() {
-            @Override
-            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Map<String, Object> controls = response.body();
-                    Log.i(TAG, "Fetched controls: " + controls);
-                    applyControls(controls);
+private void fetchControls() {
+    TelemetryApi api = ApiClient.getClient().create(TelemetryApi.class);
+    api.fetchControls(1).enqueue(new Callback<Map<String, Object>>() {
+        @Override
+        public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+            if (response.isSuccessful() && response.body() != null) {
+                Map<String, Object> responseData = response.body();
+                
+                // Extract the first (latest) reading from results array
+                List<Map<String, Object>> results = (List<Map<String, Object>>) responseData.get("results");
+                if (results != null && !results.isEmpty()) {
+                    Map<String, Object> latestReading = results.get(0);
+                    Log.i(TAG, "Latest reading: " + latestReading);
+                    applyControls(latestReading);
                 } else {
-                    Log.w(TAG, "Failed to fetch controls, code=" + response.code());
+                    Log.w(TAG, "No readings found");
                 }
+            } else {
+                Log.w(TAG, "Failed to fetch controls, code=" + response.code());
             }
+        }
 
-            @Override
-            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                Log.e(TAG, "Error fetching controls", t);
-            }
-        });
-    }
+        @Override
+        public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+            Log.e(TAG, "Error fetching controls", t);
+        }
+    });
+}
 
     /**
      * Update VHAL properties with server values only if they differ from defaults
@@ -94,15 +103,15 @@ public class TelemetryService extends Service {
             if (controls.containsKey("veos_perf_vehicle_speed")) {
                 int newSpeed = ((Number) controls.get("veos_perf_vehicle_speed")).intValue();
                 if (newSpeed != currentSpeed) {
-                    VhalNative.setInt32(0x0F50, 0, newSpeed);
+                    VhalNative.setInt32(557846375, 0, newSpeed);
                     currentSpeed = newSpeed;
-                    Log.i(TAG, "Updated speed to: " + newSpeed);
+                    Log.i(TAG, "Updated speed limit to: " + newSpeed);
                 }
             }
             if (controls.containsKey("veos_trip_distance")) {
                 int newDistance = ((Number) controls.get("veos_trip_distance")).intValue();
                 if (newDistance != currentDistance) {
-                    VhalNative.setInt32(0x0F51, 0, newDistance);
+                    VhalNative.setInt32(557846362, 0, newDistance);
                     currentDistance = newDistance;
                     Log.i(TAG, "Updated distance to: " + newDistance);
                 }
@@ -110,7 +119,7 @@ public class TelemetryService extends Service {
             if (controls.containsKey("veos_trip_duration")) {
                 int newDuration = ((Number) controls.get("veos_trip_duration")).intValue();
                 if (newDuration != currentDuration) {
-                    VhalNative.setInt32(0x0F52, 0, newDuration);
+                    VhalNative.setInt32(557846363, 0, newDuration);
                     currentDuration = newDuration;
                     Log.i(TAG, "Updated duration to: " + newDuration);
                 }
@@ -118,7 +127,7 @@ public class TelemetryService extends Service {
             if (controls.containsKey("veos_ev_battery_level")) {
                 int newBattery = ((Number) controls.get("veos_ev_battery_level")).intValue();
                 if (newBattery != currentBattery) {
-                    VhalNative.setInt32(0x0F53, 0, newBattery);
+                    VhalNative.setInt32(557846354, 0, newBattery);
                     currentBattery = newBattery;
                     Log.i(TAG, "Updated battery level to: " + newBattery);
                 }
@@ -126,7 +135,7 @@ public class TelemetryService extends Service {
             if (controls.containsKey("veos_cabin_temp")) {
                 int newTemp = ((Number) controls.get("veos_cabin_temp")).intValue();
                 if (newTemp != currentTemp) {
-                    VhalNative.setInt32(0x0F54, 0, newTemp);
+                    VhalNative.setInt32(557846376, 0, newTemp);
                     currentTemp = newTemp;
                     Log.i(TAG, "Updated cabin temperature to: " + newTemp);
                 }
@@ -136,40 +145,47 @@ public class TelemetryService extends Service {
         }
     }
 
-    private void sendTelemetry() {
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("vehicle_id", "rpi5-001");
-        payload.put("timestamp", System.currentTimeMillis());
-        addLocation(payload);
-        addInt(payload, 557846352, 0);
-        addInt(payload, 557846353, 0);
-        addInt(payload, 557846354, 0);
-        addInt(payload, 557846355, 0);
-        addInt(payload, 557846357, 0);
-        addInt(payload, 557846358, 0);
-        addInt(payload, 557846360, 0);
-        addInt(payload, 557846362, 0);
-        addInt(payload, 557846363, 0);
-        addBool(payload, 555749214, 0);
-        addBool(payload, 555749215, 0);
-        addBool(payload, 555749217, 0);
-        addBool(payload, 555749220, 0);
-        addBool(payload, 555749221, 0);
-        addInt(payload, 557846374, 0);
+private void sendTelemetry() {
+    Map<String, Object> payload = new HashMap<>();
+    payload.put("vehicle_id", "rpi5-001");
+    payload.put("timestamp", System.currentTimeMillis());
+    
+    Log.d(TAG, "=== Starting VHAL readings ===");
+    addLocation(payload);
+    
+    // Read all VHAL properties with logging
+    addInt(payload, 557846352, 0);  // gear_selection
+    addInt(payload, 557846353, 0);  // vehicle_speed  
+    addInt(payload, 557846354, 0);  // battery_level
+    addInt(payload, 557846355, 0);  // battery_temp
+    addInt(payload, 557846357, 0);  // charging_state
+    addInt(payload, 557846358, 0);  // charge_time_remaining
+    addInt(payload, 557846360, 0);  // odometer
+    addInt(payload, 557846362, 0);  // trip_distance
+    addInt(payload, 557846363, 0);  // trip_duration
+    addBool(payload, 555749214, 0); // headlights_state
+    addBool(payload, 555749215, 0); // high_beam_lights_state
+    addBool(payload, 555749217, 0); // low_battery_warning
+    addBool(payload, 555749220, 0); // brake_system_warning
+    addBool(payload, 555749221, 0); // vehicle_ready_state
+    addInt(payload, 557846374, 0);  // last_update_timestamp
 
-        TelemetryApi api = ApiClient.getClient().create(TelemetryApi.class);
-        api.sendTelemetry(payload).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.i(TAG, "Sent telemetry, status=" + response.code());
-            }
+    Log.i(TAG, "=== Complete payload to send ===");
+    Log.i(TAG, "Payload: " + payload.toString());
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.e(TAG, "Failed to send telemetry", t);
-            }
-        });
-    }
+    TelemetryApi api = ApiClient.getClient().create(TelemetryApi.class);
+    api.sendTelemetry(payload).enqueue(new Callback<Void>() {
+        @Override
+        public void onResponse(Call<Void> call, Response<Void> response) {
+            Log.i(TAG, "Sent telemetry successfully, status=" + response.code());
+        }
+
+        @Override
+        public void onFailure(Call<Void> call, Throwable t) {
+            Log.e(TAG, "Failed to send telemetry", t);
+        }
+    });
+}
 
     private void addLocation(Map<String, Object> payload) {
         try {
@@ -193,22 +209,26 @@ public class TelemetryService extends Service {
         }
     }
 
-    private void addInt(Map<String, Object> payload, int propId, int areaId) {
-        try {
-            int value = VhalNative.getInt32(propId, areaId);
-            payload.put(PropMapping.getName(propId), value);
-        } catch (Exception e) {
-            Log.w(TAG, "Failed to read int32 for " + propId, e);
-        }
+private void addInt(Map<String, Object> payload, int propId, int areaId) {
+    try {
+        int value = VhalNative.getInt32(propId, areaId);
+        String propName = PropMapping.getName(propId);
+        payload.put(propName, value);
+        Log.d(TAG, "Read from VHAL - Property: " + propName + " (ID: " + propId + ") = " + value);
+    } catch (Exception e) {
+        Log.w(TAG, "Failed to read int32 for " + PropMapping.getName(propId) + " (" + propId + ")", e);
     }
+}
 
-    private void addBool(Map<String, Object> payload, int propId, int areaId) {
-        try {
-            boolean value = VhalNative.getBool(propId, areaId);
-            payload.put(PropMapping.getName(propId), value);
-        } catch (Exception e) {
-            Log.w(TAG, "Failed to read bool for " + propId, e);
-        }
+private void addBool(Map<String, Object> payload, int propId, int areaId) {
+    try {
+        boolean value = VhalNative.getBool(propId, areaId);
+        String propName = PropMapping.getName(propId);
+        payload.put(propName, value);
+        Log.d(TAG, "Read from VHAL - Property: " + propName + " (ID: " + propId + ") = " + value);
+    } catch (Exception e) {
+        Log.w(TAG, "Failed to read bool for " + PropMapping.getName(propId) + " (" + propId + ")", e);
     }
+}
 
 }

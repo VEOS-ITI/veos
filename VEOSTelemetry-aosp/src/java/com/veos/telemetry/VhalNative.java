@@ -45,7 +45,6 @@ public class VhalNative {
             throw new RuntimeException("Failed to set bool property " + propId + " (err=" + result + ")");
         }
     }
-
     public static int getInt32(int propId, int areaId) {
         if (clientPtr == 0)
             throw new IllegalStateException("not initialized");

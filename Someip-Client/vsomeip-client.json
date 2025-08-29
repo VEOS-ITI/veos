@@ -1,59 +1,66 @@
 {
     "unicast" : "192.168.1.100",
-    "logging" : 
-    {
-        "level" : "debug",
-        "console" : "true",
-        "file" : { "enable" : "true", "path" : "/var/log/vsomeip.log" },
-        "dlt" : "true"
-    },
+  "logging": {
+    "level": "debug",
+    "console": "true",
+    "file": {
+      "enable": "false",
+      "path": "/tmp/vsomeip.log"
+    }
+  },
     "applications" :
     [
         {
             "name" : "client-sample", 
-            "id" : "0x1277"             
+            "id" : "0x1278" 
         }
     ],
-"services": [
-    {
-        "service": "0x1234",
-        "instance": "0x5678",
+        "routing" : "client-sample", 
 
-        "reliable": {
-            "port": "30509",
-            "enable-magic-cookies": "false"
-        },
+    "services": [
+        {
+            "service": "0x1234", 
+            "instance": "0x5678", 
 
-        "unreliable": "31000",
+            "reliable": {
+                "port": "30499", 
+                "enable-magic-cookies": "true"
+            },
 
-        "eventgroups": [
-            {
-                "id": "0x80f2", 
-                "reliable": false
-            }
-        ],
+            "unreliable": {
+                "port": "30500"
+            },
 
-        "events": [
-            {
-                "id": "0x80f2",  
-                "eventgroup": "0x80f2"
-            }
-        ]
-    }
-],
-    "routing" : "client-sample", 
+            "eventgroups": [
+                {
+                    "id": "0x80f2", 
+                    "reliable": false 
+                }
+            ],
+
+            "events": [
+                {
+                    "id": "0x80f2",  
+                    "eventgroup": "0x80f2"
+
+                }
+            ]
+        }
+    ],
     "service-discovery" :
     {
         "enable" : "true",
         "multicast" : "224.244.224.245",
         "port" : "30490",
         "protocol" : "udp",
-                "initial_delay_min" : "10",
+        "initial_delay_min" : "10",
         "initial_delay_max" : "100",
         "repetitions_base_delay" : "200",
         "repetitions_max" : "3",
         "ttl" : "3",
         "cyclic_offer_delay" : "2000",
-        "request_response_delay" : "1500"
+        "request_response_delay" : "1500",
+        "offer_debounce": 1000
+
     }
 }
