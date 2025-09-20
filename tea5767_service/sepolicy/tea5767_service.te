@@ -1,0 +1,45 @@
+# Domain and exec type
+type tea5767_service, domain;
+type tea5767_service_exec, exec_type, file_type, vendor_file_type;
+
+# ServiceManager registration type
+type tea5767_service_api, service_manager_type;
+
+# Define the sysfs node type
+type sysfs_tea5767, sysfs_type, fs_type;
+
+# Permissions
+allow tea5767_service tea5767_service_api:service_manager add;
+allow tea5767_service servicemanager:binder { call transfer };
+allow init tea5767_service_exec:file { getattr open read execute map };
+
+# Allow service to access its sysfs files
+allow tea5767_service sysfs_tea5767:file { read write open getattr };
+
+# Allow service to search the directory of sysfs nodes
+allow tea5767_service sysfs_tea5767:dir { search getattr };
+
+# Let init transition into our daemon
+init_daemon_domain(tea5767_service);
+
+# Allow sysfs ioctl
+allow tea5767_service sysfs_tea5767:file ioctl;
+
+
+# Binder usage
+#vndbinder_use(tea5767_service);
+#allow tea5767_service self:binder { call transfer };
+# --- Sysfs access to tea5767 nodes ---
+#allow tea5767_service sysfs_tea5767:dir { getattr search };
+#allow tea5767_service sysfs_tea5767:file { getattr open read write };
+# --- Watchdog inspection ---
+#allow carwatchdogd tea5767_service:process { getattr sigchld };
+#allow carwatchdogd proc:dir search;
+#allow carwatchdogd proc_stat:file { read getattr open };
+# --- Basic /proc & rootfs access ---
+#allow tea5767_service rootfs:dir search;
+#allow tea5767_service proc:dir search;
+#allow tea5767_service proc:file { read getattr open getattr };
+#allow tea5767_service:binder { call transfer };
+
+

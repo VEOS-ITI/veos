@@ -15,21 +15,32 @@
 #include <CommonAPI/CommonAPI.hpp>
 #include <v0/commonapi/examples/E01HelloWorldProxy.hpp>
 #include "RSAHelper.hpp"
-#include "VehicleProtoConverter.hpp"           // Include the converter
-#include "../src-gen/protobuf/avisio_ivi.pb.h" // Include your Protobuf header
+#include "VehicleProtoConverter.hpp"           // converter
+#include "../src-gen/protobuf/avisio_ivi.pb.h" // Protobuf header
+#include "ProtobufDataHandler.hpp"
+#include <android/log.h> // Add Android logging
 
 using namespace v0::commonapi::examples;
 
+// Define Android logging tags
+#define LOG_TAG "VHAL_Client"
+#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+
 void listener(const CommonAPI::AvailabilityStatus &status)
 {
-    std::cout << "in func android status:" << (int)status << std::endl;
+    LOGI("Service status changed: %d", (int)status);
 }
+
 int main()
 {
     CommonAPI::Runtime::setProperty("LogContext", "E01C");
     CommonAPI::Runtime::setProperty("LogApplication", "E01C");
     CommonAPI::Runtime::setProperty("LibraryBase", "E01HelloWorld");
     CommonAPI::Runtime::setProperty("LogLevel", "DEBUG");
+
+    LOGI("Starting VHAL client...");
 
     std::shared_ptr<CommonAPI::Runtime> runtime = CommonAPI::Runtime::get();
 
@@ -41,20 +52,21 @@ int main()
 
     std::function<void(const CommonAPI::AvailabilityStatus &status)> proxyStatusListener = listener;
     // myProxy->getProxyStatusEvent().subscribe(proxyStatusListener);
-    std::cout << "Checking availability!" << std::endl;
+    LOGI("Checking availability!");
     while (!myProxy->isAvailable())
     {
-        std::cout << "Waiting for service..." << std::endl;
+        LOGI("Waiting for service...");
         std::this_thread::sleep_for(std::chrono::microseconds(10));
     }
-    std::cout << "Available..." << std::endl;
-
+    LOGI("Available...");
+    
+    ProtobufDataHandler dataHandler;
+    
     myProxy->getStatusEvent().subscribe(
         [&](const CommonAPI::ByteBuffer &Buffer)
         {
-          
-
-            std::cerr  << "[E01HelloWorldClient] Received data in getStatusEvent callback." << std::endl;
+            LOGD("Received data in getStatusEvent callback.");
+            
             try
             {
                 // Convert the received ByteBuffer back to a Protobuf message
@@ -62,26 +74,28 @@ int main()
                 avisio_ivi::PrimaryVehicleState state = VehicleProtoConverter::fromByteBuffer(protoStatus);
 
                 // Now you can access the structured data from the receivedState object
-                 std::cerr  << "[ProtobufDataHandler] Vehicle State Log:" << std::endl;
-                 std::cerr  << "  Timestamp (ms): " << state.timestamp_ms() << std::endl;
-                 std::cerr  << "  Speed (km/h): " << state.speed_kmh() << std::endl;
-                 std::cerr  << "  Engine RPM: " << state.engine_rpm() << std::endl;
-                 std::cerr  << "  Current Gear: " << state.current_gear() << std::endl;
-                 std::cerr  << "  Battery Level (%): " << state.battery_level() << std::endl;
-                 std::cerr  << "  Engine Temp (°C): " << state.engine_temp_c() << std::endl;
-                std::cerr  << "  Charging: " << (state.is_charging() ? "Yes" : "No") << std::endl;
-                 std::cerr  << "  Exterior Lights: " << state.exterior_lights_status() << std::endl;
-                std::cerr  << "  Cabin Temp (°C): " << state.cabin_temp_c() << std::endl;
-                 std::cerr << "  AC On: " << (state.ac_on() ? "Yes" : "No") << std::endl;
-                std::cerr << "  Left Signal: " << (state.turn_signal_left() ? "On" : "Off") << std::endl;
-                std::cerr << "  Right Signal: " << (state.turn_signal_right() ? "On" : "Off") << std::endl;
-              std::cerr  << "  Hazard Lights: " << (state.hazard_lights_on() ? "On" : "Off") << std::endl;
-              std::cerr << "------------------------------------------" << std::endl;
-                // Add more print statements for other fields as needed
+                LOGD("Vehicle State Log:");
+                LOGD("  Timestamp (ms): %u", state.timestamp_ms());
+                LOGD("  Speed (km/h): %u", state.speed_kmh());
+                LOGD("  Engine RPM: %u", state.engine_rpm());
+                LOGD("  Current Gear: %d", state.current_gear());
+                LOGD("  Battery Level (%): %u", state.battery_level());
+                LOGD("  Engine Temp (°C): %d", state.engine_temp_c());
+                LOGD("  Charging: %s", state.is_charging() ? "Yes" : "No");
+                LOGD("  Exterior Lights: %d", state.exterior_lights_status());
+                LOGD("  Cabin Temp (°C): %d", state.cabin_temp_c());
+                LOGD("  AC On: %s", state.ac_on() ? "Yes" : "No");
+                LOGD("  Left Signal: %s", state.turn_signal_left() ? "On" : "Off");
+                LOGD("  Right Signal: %s", state.turn_signal_right() ? "On" : "Off");
+                LOGD("  Hazard Lights: %s", state.hazard_lights_on() ? "On" : "Off");
+                LOGD("------------------------------------------");
+                
+                // Process the parsed data to set VHAL properties
+                dataHandler.processPrimaryVehicleState(state);
             }
             catch (const std::runtime_error &e)
             {
-                std::cerr << "[Client] Error parsing Protobuf from received ByteBuffer: " << e.what() << std::endl;
+                LOGE("Error parsing Protobuf from received ByteBuffer: %s", e.what());
             }
         });
 

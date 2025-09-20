@@ -1,0 +1,23 @@
+cc_library_shared {
+    name: "libtea5767hal",
+
+    srcs: [
+        "src/tea5767hal.cpp",
+    ],
+
+    shared_libs: [
+        "libc++",
+        "liblog",
+        "libbase",
+    ],
+
+    include_dirs: [
+        "vendor/VEOS/lib/tea5767/inc",
+    ],
+
+    export_include_dirs: [
+        "inc",
+    ],
+    installable: true,
+    vendor: true,
+}

@@ -1,0 +1,5 @@
+/vendor/bin/hw/tea5767_service u:object_r:tea5767_service_exec:s0
+
+# Sysfs nodes for the TEA5767 chip on I2C bus 1, address 0x60  u:object_r:sysfs:s0
+/sys/class/i2c-dev/i2c-1/device/1-0060/tea5767/mute u:object_r:sysfs:s0
+/sys/class/i2c-dev/i2c-1/device/1-0060/tea5767/station u:object_r:sysfs:s0

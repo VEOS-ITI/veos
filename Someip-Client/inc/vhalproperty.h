@@ -8,6 +8,7 @@
 // in a proper vehicle_properties.h or similar file within the VHAL implementation.
 
 // PrimaryVehicleState properties
+
 #define VEHICLE_PROPERTY_PRIMARY_STATE_TIMESTAMP            557846374 // veos_last_update_timestamp (used for timestamp_ms)
 #define VEHICLE_PROPERTY_PRIMARY_STATE_SPEED_KMH            557846353 // veos_perf_vehicle_speed
 #define VEHICLE_PROPERTY_PRIMARY_STATE_ENGINE_RPM           0x21000003 // No direct mapping, using a placeholder

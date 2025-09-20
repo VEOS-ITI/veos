@@ -1,0 +1,23 @@
+cc_binary{
+    name : "tea5767_service",
+    relative_install_path : "hw",
+    srcs : ["native/*.cpp"],
+
+    shared_libs : ["liblog",
+        "libtea5767hal",
+        "libbinder_ndk",
+        "libbinder",
+        "libutils",
+        "libbase",
+        "libcutils",
+        "android.vendor.radio-V1-ndk"],
+    
+    stl : "libc++",
+    cflags : ["-std=c++17"],
+
+
+    include_dirs: ["vendor/VEOS/lib/tea5767/inc"],
+    ldflags : ["-u","-main"],
+    vendor : true,
+    init_rc: ["init.tea5767.rc"],
+}

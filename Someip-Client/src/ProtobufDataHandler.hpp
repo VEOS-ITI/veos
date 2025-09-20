@@ -11,10 +11,10 @@ public:
     ProtobufDataHandler();
     ~ProtobufDataHandler();
     void handleProtobufData(const CommonAPI::ByteBuffer& encryptedData);
+    void processPrimaryVehicleState(const avisio_ivi::PrimaryVehicleState& state);
 
 private:
     vhal_client_t* vhal_client_;
-    void processPrimaryVehicleState(const avisio_ivi::PrimaryVehicleState& state);
     void processSignalLightingStatus(const avisio_ivi::SignalLightingStatus& status);
     void processSafetyStatus(const avisio_ivi::SafetyStatus& status);
 };

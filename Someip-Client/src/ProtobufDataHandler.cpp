@@ -101,7 +101,9 @@ void ProtobufDataHandler::processPrimaryVehicleState(const avisio_ivi::PrimaryVe
 
     // Turn Signals and Hazard Lights (bool)
     vhal_set_bool(vhal_client_, VEOS_TURN_SIGNAL_LEFT_STATE, 0, state.turn_signal_left());
+
     vhal_set_bool(vhal_client_, VEOS_TURN_SIGNAL_RIGHT_STATE, 0, state.turn_signal_right());
+    
     vhal_set_bool(vhal_client_, VEOS_HAZARD_LIGHTS_STATE, 0, state.hazard_lights_on());
 
     // AC State (bool)

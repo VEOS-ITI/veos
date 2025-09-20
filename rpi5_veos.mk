@@ -15,6 +15,8 @@ PRODUCT_PACKAGES += \
     libboost_system \
     libboost_thread \
     libvsomeip3 \
+    libtea5767hal \
+    tea5767_service
     
 
 
@@ -41,7 +43,8 @@ PRODUCT_COPY_FILES += \
     vendor/VEOS/Someip-Client/vsomeip-client.json:$(TARGET_COPY_OUT_VENDOR)/etc/vsomeip-client.json \
     vendor/VEOS/Someip-Client/private.pem:$(TARGET_COPY_OUT_VENDOR)/etc/private.pem \
     vendor/VEOS/Someip-Client/public.pem:$(TARGET_COPY_OUT_VENDOR)/etc/public.pem
-
+    
+BOARD_SEPOLICY_DIRS += vendor/VEOS/tea5767_service/sepolicy    
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=200
 PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
 BUILD_WITH_CLUSTER_OS_DOUBLE := false
