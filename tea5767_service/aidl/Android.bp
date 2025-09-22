@@ -1,0 +1,19 @@
+aidl_interface {
+    name: "android.vendor.radio",
+    srcs: ["android/vendor/radio/ITea5767Service.aidl"],
+    stability: "vintf",
+    backend: {
+        ndk: {
+            enabled: true,
+        },
+    },
+    vendor_available: true,
+    frozen: true,
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+    ],
+
+}

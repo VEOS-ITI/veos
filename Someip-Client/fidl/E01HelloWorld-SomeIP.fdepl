@@ -1,0 +1,30 @@
+/* Copyright (C) 2015 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
+import "platform:/plugin/org.genivi.commonapi.someip/deployment/CommonAPI-4-SOMEIP_deployment_spec.fdepl"
+import "E01HelloWorld.fidl"
+
+define org.genivi.commonapi.someip.deployment for interface commonapi.examples.E01HelloWorld {
+    SomeIpServiceID = 4660
+    
+    broadcast Status {
+        SomeIpEventID = 33010      
+        SomeIpReliable = true
+        SomeIpEventGroups = { 33010 }
+
+    }
+}
+
+define org.genivi.commonapi.someip.deployment for provider as Service {
+    instance commonapi.examples.E01HelloWorld {
+        InstanceId = "commonapi.examples.HelloWorld"
+        
+        SomeIpInstanceID = 22136
+    
+        SomeIpUnicastAddress = "192.168.1.101"
+        SomeIpReliableUnicastPort = 30499
+        SomeIpUnreliableUnicastPort = 30500
+    }
+}

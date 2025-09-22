@@ -1,0 +1,88 @@
+cc_binary {
+    name: "E01HelloWorldClient",
+
+    srcs: [
+        "src/*.cpp",
+        "src-gen/v0/commonapi/examples/*.cpp",
+    ],
+
+    shared_libs: [
+        "liblog",
+        "libvsomeip3",
+        "libcommonapi_someip",
+        "libcommonapi",
+        "libc++",
+        "libboost_system",
+        "libboost_thread",
+        "libboost_filesystem",
+        "libcrypto",
+        "libutils",
+        "libprotobuf-cpp-full",
+        "libveos_vhalshim" ,
+        "libvsomeip3-sd" ,
+        "libvsomeip3-cfg" ,
+        "libvsomeip3-e2e",
+        "libboost_log" ,
+        
+   	 ],
+	static_libs: [
+    	"libavisio_ivi_proto"],
+
+    local_include_dirs: [
+        "src-gen",
+        "inc",
+    ],
+
+    include_dirs: [
+        "external/sdv/capicxx-core-runtime/include",
+        "external/sdv/capicxx-someip-runtime/include",
+        "external/sdv/vsomeip/interface",
+        "external/protobuf/src",
+    ],
+
+    cppflags: [
+        "-fexceptions",
+        "-frtti"
+    ],
+
+    rtti: true,                 // <<< CRITICAL: Enable RTTI for dynamic_cast
+}
+
+prebuilt_etc {
+    name: "someip_private_key",
+    src: "private.pem",
+    sub_dir: "someip",
+    installable: true,
+}
+
+prebuilt_etc {
+    name: "someip_public_key",
+    src: "public.pem",
+    sub_dir: "someip",
+    installable: true,
+}
+prebuilt_etc {
+    name: "someip_config",
+    src: "vsomeip-aosp.json",
+    sub_dir: "someip",
+    installable: true,
+}
+cc_library_static {
+    name: "libavisio_ivi_proto",
+    srcs: [
+        "src-gen/protobuf/avisio_ivi.pb.cc",
+    ],
+    export_include_dirs: ["src-gen/protobuf"],
+    include_dirs: [
+        "external/protobuf/src",
+    ],
+    shared_libs: [
+        "liblog",
+    ],
+    cppflags: [
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+    ],
+    vendor: true,
+}

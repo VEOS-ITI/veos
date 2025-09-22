@@ -1,0 +1,30 @@
+// VEOS Common Shared Libraries
+java_import {
+    name: "veos_common_retrofit",
+    jars: ["libs/retrofit-2.9.0.jar"],
+    sdk_version: "system_current",
+}
+
+java_import {
+    name: "veos_common_converter_gson",
+    jars: ["libs/converter-gson-2.9.0.jar"],
+    sdk_version: "system_current",
+}
+
+java_import {
+    name: "veos_common_gson",
+    jars: ["libs/gson-2.10.1.jar"],
+    sdk_version: "system_current",
+}
+
+java_import {
+    name: "veos_common_okio",
+    jars: ["libs/okio-3.6.0.jar"],
+    sdk_version: "system_current",
+}
+
+java_import {
+    name: "veos_common_okhttp",
+    jars: ["libs/okhttp-4.11.0.jar"],
+    sdk_version: "system_current",
+}

@@ -1,0 +1,8 @@
+<!-- res/drawable/selected_gear_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:startColor="#80FFFFFF"
+        android:endColor="#00FFFFFF"
+        android:angle="90" />
+</shape>

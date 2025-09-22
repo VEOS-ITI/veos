@@ -1,0 +1,10 @@
+<!-- res/layout/item_gear.xml -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gearText"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:gravity="center"
+    android:textSize="50dp"
+    android:textColor="#55FFFFFF"
+    android:fontFamily="@font/roboto"
+    android:layout_margin="8dp"/>

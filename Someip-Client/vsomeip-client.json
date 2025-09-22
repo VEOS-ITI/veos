@@ -1,0 +1,66 @@
+{
+    "unicast" : "172.16.5.2",
+  "logging": {
+    "level": "debug",
+    "console": "true",
+    "file": {
+      "enable": "false",
+      "path": "/tmp/vsomeip.log"
+    }
+  },
+    "applications" :
+    [
+        {
+            "name" : "client-sample", 
+            "id" : "0x1278" 
+        }
+    ],
+        "routing" : "client-sample", 
+
+    "services": [
+        {
+            "service": "0x1234", 
+            "instance": "0x5678", 
+
+            "reliable": {
+                "port": "30499", 
+                "enable-magic-cookies": "true"
+            },
+
+            "unreliable": {
+                "port": "30500"
+            },
+
+            "eventgroups": [
+                {
+                    "id": "0x80f2", 
+                    "reliable": false 
+                }
+            ],
+
+            "events": [
+                {
+                    "id": "0x80f2",  
+                    "eventgroup": "0x80f2"
+
+                }
+            ]
+        }
+    ],
+    "service-discovery" :
+    {
+        "enable" : "true",
+        "multicast" : "224.244.224.245",
+        "port" : "30490",
+        "protocol" : "udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "100",
+        "repetitions_base_delay" : "200",
+        "repetitions_max" : "3",
+        "ttl" : "3",
+        "cyclic_offer_delay" : "2000",
+        "request_response_delay" : "1500",
+        "offer_debounce": 1000
+
+    }
+}

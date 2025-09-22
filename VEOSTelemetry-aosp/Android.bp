@@ -1,0 +1,30 @@
+// VEOSTelemetry App Module
+android_app {
+    name: "VEOSTelemetry",
+    srcs: ["src/java/**/*.java"],
+    resource_dirs: ["res"],
+    manifest: "AndroidManifest.xml",
+    privileged: true,
+    certificate: "platform",
+    sdk_version: "system_current",
+
+    jni_libs: [
+        "libveos_vhaljni",    
+    ],
+
+    static_libs: [
+        "androidx.appcompat_appcompat",
+        "androidx.core_core",
+        "com.google.android.material_material",
+        "veos_common_retrofit",
+        "veos_common_converter_gson",
+        "veos_common_gson",
+        "veos_common_okio",
+        "veos_common_okhttp",
+    ],
+
+    optimize: {
+        enabled: false,
+    },
+}
+

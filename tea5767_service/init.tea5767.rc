@@ -1,0 +1,12 @@
+service tea5767_service /vendor/bin/hw/tea5767_service
+    class hal 
+    user root
+    group root
+    seclabel u:object_r:tea5767_service_exec:s0
+
+
+
+on boot
+    start tea5767_service
+    chmod 777 /sys/class/i2c-dev/i2c-1/device/1-0060/tea5767/mute
+    chmod 777 /sys/class/i2c-dev/i2c-1/device/1-0060/tea5767/station
